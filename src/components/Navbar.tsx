@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -24,9 +25,15 @@ export default function Navbar() {
 					<div className="flex-shrink-0">
 						<Link
 							href="/"
-							className="text-2xl font-bold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+							className="flex items-center gap-2 hover:opacity-80 transition-opacity"
 						>
-							Robin-2
+							<Image
+								src="/logo.png"
+								alt="Logo"
+								width={80}
+								height={45}
+								className="object-contain"
+							/>
 						</Link>
 					</div>
 

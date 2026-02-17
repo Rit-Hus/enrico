@@ -264,9 +264,7 @@ export default function Home() {
 			<header className="border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
 				<nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 					<div className="flex items-center justify-between">
-						<h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-							Robin
-						</h1>
+						<img src="/logo.png" alt="Logo" className="h-12 object-contain" />
 						{view !== "form" && (
 							<button
 								onClick={() => {
@@ -1404,7 +1402,7 @@ export default function Home() {
 			<footer className="border-t border-gray-200 dark:border-gray-700 mt-12">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 					<p className="text-center text-gray-600 dark:text-gray-400">
-						&copy; 2026 Robin. Helping entrepreneurs build their dreams.
+						&copy; 2026 Helping entrepreneurs build their dreams.
 					</p>
 				</div>
 			</footer>
