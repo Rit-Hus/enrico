@@ -9,15 +9,17 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: "#9719f0",
-				"background-light": "#f7f6f8",
-				"background-dark": "#1b1022",
-				background: "var(--background)",
-				foreground: "var(--foreground)",
+				primary: "#14332D",
+				blue: "#553CC9",
+				yellow: "#DFFE5B",
+				beige: "#F7F7F1",
+				"background-light": "#F7F7F1",
+				"background-dark": "#14332D",
 			},
 			fontFamily: {
-				display: ["Inter", "sans-serif"],
+				display: ["Poppins", "sans-serif"],
 				poppins: ["Poppins", "sans-serif"],
+				inter: ["Inter", "sans-serif"],
 			},
 			borderRadius: {
 				DEFAULT: "0.5rem",

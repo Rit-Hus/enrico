@@ -44,7 +44,7 @@ export default function Navbar() {
 								<Link
 									key={item.href}
 									href={item.href}
-									className="text-[#794b9b] hover:text-primary dark:text-[#794b9b] dark:hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
+									className="text-[#14332D]/60 hover:text-primary dark:text-[#14332D]/60 dark:hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors"
 								>
 									{item.label}
 								</Link>
@@ -104,7 +104,7 @@ export default function Navbar() {
 							<Link
 								key={item.href}
 								href={item.href}
-								className="text-[#794b9b] hover:text-primary dark:text-[#794b9b] dark:hover:text-primary block px-3 py-2 rounded-md text-base font-medium transition-colors"
+								className="text-[#14332D]/60 hover:text-primary dark:text-[#14332D]/60 dark:hover:text-primary block px-3 py-2 rounded-md text-base font-medium transition-colors"
 								onClick={() => setIsOpen(false)}
 							>
 								{item.label}

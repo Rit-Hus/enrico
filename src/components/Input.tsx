@@ -28,7 +28,7 @@ export default function Input({
 	return (
 		<div className={`w-full ${className}`}>
 			{label && (
-				<label className="block text-sm font-medium text-[#160d1c] dark:text-white mb-2">
+				<label className="block text-sm font-medium text-[#14332D] dark:text-white mb-2">
 					{label}
 					{required && <span className="text-red-500 ml-1">*</span>}
 				</label>
@@ -47,8 +47,8 @@ export default function Input({
 							? "border-red-500 focus:ring-4 focus:ring-red-500/10 focus:border-red-500"
 							: "border-primary/20 focus:border-primary focus:ring-4 focus:ring-primary/10"
 					}
-          bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white
-          placeholder:text-[#794b9b]/50
+          bg-white dark:bg-[#14332D] text-[#14332D] dark:text-white
+          placeholder:text-[#14332D]/40
           disabled:opacity-50 disabled:cursor-not-allowed
         `}
 			/>

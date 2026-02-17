@@ -246,8 +246,8 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
 	return (
 		<div className="space-y-1">
 			<div className="flex justify-between text-sm">
-				<span className="text-[#794b9b]">{label}</span>
-				<span className="font-bold text-[#160d1c] dark:text-white">
+				<span className="text-[#14332D]">{label}</span>
+				<span className="font-bold text-[#14332D] dark:text-white">
 					{value}/10
 				</span>
 			</div>
@@ -505,7 +505,7 @@ export default function Home() {
 								setDashboardSteps(initialSteps);
 								setExpandedStepId(null);
 								}}
-								className="text-[#794b9b] hover:text-primary transition-colors text-sm"
+								className="text-[#14332D] hover:text-primary transition-colors text-sm"
 							>
 								Start Over
 							</button>
@@ -519,13 +519,13 @@ export default function Home() {
 				{view === "form" && (
 					<>
 						<div className="text-center mb-12">
-							<h2 className="font-poppins text-[38px] leading-[1.1] font-bold text-[#160d1c] dark:text-white mb-6">
+							<h2 className="font-poppins text-[38px] leading-[1.1] font-medium text-[#14332D] dark:text-white mb-6">
 								Start Your Company
 								<span className="block text-primary">
 									With Confidence
 								</span>
 							</h2>
-							<p className="text-lg font-medium text-[#794b9b] max-w-2xl mx-auto">
+							<p className="text-lg font-medium text-[#14332D] max-w-2xl mx-auto">
 								Share your business idea and get AI-powered market research
 								to validate your startup.
 							</p>
@@ -536,7 +536,7 @@ export default function Home() {
 							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 						>
 							<div className="mb-8">
-								<h3 className="text-2xl sm:text-3xl font-bold text-[#160d1c] dark:text-white mb-2">
+								<h3 className="text-2xl sm:text-3xl font-medium text-[#14332D] dark:text-white mb-2">
 									Tell Us About Your Idea
 								</h3>
 								<p className="text-sm text-slate-500 dark:text-slate-400 leading-snug">
@@ -547,7 +547,7 @@ export default function Home() {
 
 							<form onSubmit={handleSubmit} className="space-y-6">
 								<div className="w-full">
-									<label className="block text-sm font-medium text-[#160d1c] dark:text-white mb-2">
+									<label className="block text-sm font-medium text-[#14332D] dark:text-white mb-2">
 										Your Business Idea
 									</label>
 									<textarea
@@ -561,7 +561,7 @@ export default function Home() {
 										rows={6}
 										className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all resize-none
 											${ideaError ? "border-red-500 focus:ring-red-500" : "border-primary/20"}
-											bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50`}
+											bg-white dark:bg-[#14332D] text-[#14332D] dark:text-white placeholder:text-[#14332D]/50`}
 									/>
 									{ideaError && (
 										<p className="mt-1 text-sm text-red-500">{ideaError}</p>
@@ -601,10 +601,10 @@ export default function Home() {
 									/>
 								</svg>
 							</div>
-							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-4">
+							<h2 className="text-3xl sm:text-4xl font-medium leading-tight tracking-tight text-[#14332D] dark:text-white mb-4">
 								Ready to Research Your Market
 							</h2>
-							<p className="text-lg font-medium text-[#794b9b] mb-2">
+							<p className="text-lg font-medium text-[#14332D] mb-2">
 								We&apos;ll analyze the market for your business idea.
 							</p>
 						</div>
@@ -613,7 +613,7 @@ export default function Home() {
 							className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8 mb-8 text-left"
 							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 						>
-							<h3 className="text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-3">
+							<h3 className="text-[10px] font-medium uppercase tracking-widest text-primary/60 mb-3">
 								Your Business Idea
 							</h3>
 							<p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
@@ -622,7 +622,7 @@ export default function Home() {
 						</div>
 
 						<div className="bg-primary/5 border border-primary/20 rounded-xl p-6 mb-8">
-							<h3 className="font-semibold text-[#160d1c] dark:text-white mb-2">
+							<h3 className="font-medium text-[#14332D] dark:text-white mb-2">
 								What you&apos;ll get:
 							</h3>
 							<ul className="text-sm text-slate-700 dark:text-slate-300 space-y-2 text-left max-w-md mx-auto">
@@ -709,10 +709,10 @@ export default function Home() {
 							</div>
 						</div>
 
-						<h2 className="text-2xl sm:text-3xl font-bold text-[#160d1c] dark:text-white mb-4">
+						<h2 className="text-2xl sm:text-3xl font-medium text-[#14332D] dark:text-white mb-4">
 							Analyzing Your Market
 						</h2>
-						<p className="text-[#794b9b] mb-8">
+						<p className="text-[#14332D] mb-8">
 							Our AI is researching competitors, market trends, and
 							opportunities for your business idea. This may take a minute.
 						</p>
@@ -728,7 +728,7 @@ export default function Home() {
 							].map((step, i) => (
 								<div
 									key={step}
-									className="flex items-center gap-3 text-sm text-[#794b9b] animate-pulse"
+									className="flex items-center gap-3 text-sm text-[#14332D] animate-pulse"
 									style={{ animationDelay: `${i * 0.3}s` }}
 								>
 									<div className="w-2 h-2 rounded-full bg-primary" />
@@ -757,10 +757,10 @@ export default function Home() {
 								/>
 							</svg>
 						</div>
-						<h2 className="text-2xl font-bold text-[#160d1c] dark:text-white mb-3">
+						<h2 className="text-2xl font-medium text-[#14332D] dark:text-white mb-3">
 							Something Went Wrong
 						</h2>
-						<p className="text-[#794b9b] mb-8">
+						<p className="text-[#14332D] mb-8">
 							{errorMessage}
 						</p>
 						<div className="flex gap-4 justify-center">
@@ -783,7 +783,7 @@ export default function Home() {
 					<div className="space-y-8">
 						{/* Results Header */}
 						<div className="text-center mb-4">
-							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
+							<h2 className="text-3xl sm:text-4xl font-medium leading-tight tracking-tight text-[#14332D] dark:text-white mb-2">
 								Market Research Results
 							</h2>
 						</div>
@@ -823,22 +823,22 @@ export default function Home() {
 												x2="100%"
 												y2="100%"
 											>
-												<stop offset="0%" stopColor="#9719f0" />
-												<stop offset="100%" stopColor="#9719f0" />
+												<stop offset="0%" stopColor="#14332D" />
+												<stop offset="100%" stopColor="#14332D" />
 											</linearGradient>
 										</defs>
 									</svg>
 									<div className="absolute inset-0 flex items-center justify-center">
-										<span className="text-3xl font-bold tracking-tighter text-[#160d1c] dark:text-white">
+										<span className="text-3xl font-bold tracking-tighter text-[#14332D] dark:text-white">
 											{researchData.marketViabilityScore.overall}
 										</span>
-										<span className="text-sm text-[#794b9b]">
+										<span className="text-sm text-[#14332D]">
 											/10
 										</span>
 									</div>
 								</div>
 								<div className="text-center sm:text-left">
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-1">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-1">
 										Market Viability Score
 									</h3>
 									<p className="text-sm text-slate-500 dark:text-slate-400 leading-snug">
@@ -872,7 +872,7 @@ export default function Home() {
 							className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
 							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 						>
-							<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
+							<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-4">
 								Market Summary
 							</h3>
 							<p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
@@ -883,7 +883,7 @@ export default function Home() {
 									<span className="text-[10px] font-bold uppercase tracking-widest text-primary/60 block">
 										Est. Market Size
 									</span>
-									<span className="font-semibold text-[#160d1c] dark:text-white">
+									<span className="font-semibold text-[#14332D] dark:text-white">
 										{researchData.marketSummary.estimatedMarketSize}
 									</span>
 								</div>
@@ -898,7 +898,7 @@ export default function Home() {
 							</div>
 							{researchData.marketSummary.keyInsights.length > 0 && (
 								<div>
-									<h4 className="text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-2">
+									<h4 className="text-[10px] font-medium uppercase tracking-widest text-primary/60 mb-2">
 										Key Insights
 									</h4>
 									<ul className="space-y-2">
@@ -927,7 +927,7 @@ export default function Home() {
 								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
 								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 							>
-								<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
+								<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-4">
 									Target Audience
 								</h3>
 								<div className="space-y-4">
@@ -935,7 +935,7 @@ export default function Home() {
 										<span className="text-[10px] font-bold uppercase tracking-widest text-primary/60">
 											Primary Segment
 										</span>
-										<p className="text-[#160d1c] dark:text-white font-medium">
+										<p className="text-[#14332D] dark:text-white font-medium">
 											{researchData.targetAudience.primarySegment}
 										</p>
 									</div>
@@ -981,7 +981,7 @@ export default function Home() {
 								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
 								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 							>
-								<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
+								<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-4">
 									Pricing Benchmark
 								</h3>
 								<div className="space-y-4">
@@ -992,7 +992,7 @@ export default function Home() {
 													{researchData.pricingBenchmark.low}
 												</span>
 											</div>
-											<span className="text-xs text-[#794b9b] mt-1 block">
+											<span className="text-xs text-[#14332D] mt-1 block">
 												Low
 											</span>
 										</div>
@@ -1002,7 +1002,7 @@ export default function Home() {
 													{researchData.pricingBenchmark.median}
 												</span>
 											</div>
-											<span className="text-xs text-[#794b9b] mt-1 block">
+											<span className="text-xs text-[#14332D] mt-1 block">
 												Median
 											</span>
 										</div>
@@ -1012,12 +1012,12 @@ export default function Home() {
 													{researchData.pricingBenchmark.high}
 												</span>
 											</div>
-											<span className="text-xs text-[#794b9b] mt-1 block">
+											<span className="text-xs text-[#14332D] mt-1 block">
 												High
 											</span>
 										</div>
 									</div>
-									<p className="text-xs text-[#794b9b] text-center">
+									<p className="text-xs text-[#14332D] text-center">
 										Currency: {researchData.pricingBenchmark.currency}
 									</p>
 								</div>
@@ -1030,7 +1030,7 @@ export default function Home() {
 								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
 								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 							>
-								<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
+								<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-4">
 									Key Competitors
 								</h3>
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1040,10 +1040,10 @@ export default function Home() {
 											className="border border-primary/10 rounded-xl p-4"
 										>
 											<div className="flex justify-between items-start mb-2">
-												<h4 className="font-semibold text-[#160d1c] dark:text-white">
+												<h4 className="font-medium text-[#14332D] dark:text-white">
 													{competitor.name}
 												</h4>
-												<span className="text-xs px-2 py-1 bg-primary/5 dark:bg-primary/10 rounded-full text-[#794b9b]">
+												<span className="text-xs px-2 py-1 bg-primary/5 dark:bg-primary/10 rounded-full text-[#14332D]">
 													{competitor.estimatedPriceRange}
 												</span>
 											</div>
@@ -1079,7 +1079,7 @@ export default function Home() {
 											+
 										</span>
 									</div>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white">
 										Opportunities
 									</h3>
 								</div>
@@ -1109,7 +1109,7 @@ export default function Home() {
 											!
 										</span>
 									</div>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white">
 										Risks
 									</h3>
 								</div>
@@ -1139,7 +1139,7 @@ export default function Home() {
 											&#9733;
 										</span>
 									</div>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white">
 										Recommendations
 									</h3>
 								</div>
@@ -1209,10 +1209,10 @@ export default function Home() {
 							</div>
 						</div>
 
-						<h2 className="text-2xl sm:text-3xl font-bold text-[#160d1c] dark:text-white mb-4">
+						<h2 className="text-2xl sm:text-3xl font-medium text-[#14332D] dark:text-white mb-4">
 							Brainstorming Business Names
 						</h2>
-						<p className="text-[#794b9b] mb-8">
+						<p className="text-[#14332D] mb-8">
 							Our AI is crafting unique, memorable name ideas for your
 							business. This should only take a moment.
 						</p>
@@ -1227,7 +1227,7 @@ export default function Home() {
 							].map((step, i) => (
 								<div
 									key={step}
-									className="flex items-center gap-3 text-sm text-[#794b9b] animate-pulse"
+									className="flex items-center gap-3 text-sm text-[#14332D] animate-pulse"
 									style={{ animationDelay: `${i * 0.3}s` }}
 								>
 									<div className="w-2 h-2 rounded-full bg-primary" />
@@ -1257,10 +1257,10 @@ export default function Home() {
 									/>
 								</svg>
 							</div>
-							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
+							<h2 className="text-3xl sm:text-4xl font-medium leading-tight tracking-tight text-[#14332D] dark:text-white mb-2">
 								Choose Your Business Name
 							</h2>
-							<p className="text-lg font-medium text-[#794b9b]">
+							<p className="text-lg font-medium text-[#14332D]">
 								Select one of our AI-generated suggestions or enter your
 								own.
 							</p>
@@ -1296,7 +1296,7 @@ export default function Home() {
 												)}
 										</div>
 										<div>
-											<span className="font-semibold text-[#160d1c] dark:text-white text-lg">
+											<span className="font-semibold text-[#14332D] dark:text-white text-lg">
 												{suggestion.name}
 											</span>
 											<p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
@@ -1323,7 +1323,7 @@ export default function Home() {
 										<div className="w-3 h-3 rounded-full bg-primary" />
 									)}
 								</button>
-								<span className="font-medium text-[#160d1c] dark:text-white">
+								<span className="font-medium text-[#14332D] dark:text-white">
 									Use my own name
 								</span>
 							</div>
@@ -1336,7 +1336,7 @@ export default function Home() {
 									setUseCustomName(true);
 								}}
 								onFocus={() => setUseCustomName(true)}
-								className="w-full px-4 py-2.5 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary"
+								className="w-full px-4 py-2.5 border border-primary/20 rounded-lg bg-white dark:bg-[#14332D] text-[#14332D] dark:text-white placeholder:text-[#14332D]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary"
 							/>
 						</div>
 
@@ -1375,13 +1375,13 @@ export default function Home() {
 									/>
 								</svg>
 							</div>
-							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-4">
+							<h2 className="text-3xl sm:text-4xl font-medium leading-tight tracking-tight text-[#14332D] dark:text-white mb-4">
 								Assess Business Type
 							</h2>
-							<p className="text-lg font-medium text-[#794b9b] mb-2">
+							<p className="text-lg font-medium text-[#14332D] mb-2">
 								Let our AI recommend the best Swedish business entity
 								type for{" "}
-								<span className="font-semibold text-[#160d1c] dark:text-white">
+								<span className="font-semibold text-[#14332D] dark:text-white">
 									{getChosenName()}
 								</span>
 								.
@@ -1392,7 +1392,7 @@ export default function Home() {
 							className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8 mb-8 text-left"
 							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 						>
-							<h3 className="text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-4">
+							<h3 className="text-[10px] font-medium uppercase tracking-widest text-primary/60 mb-4">
 								We&apos;ll compare these Swedish entity types:
 							</h3>
 							<div className="space-y-3">
@@ -1482,10 +1482,10 @@ export default function Home() {
 							</div>
 						</div>
 
-						<h2 className="text-2xl sm:text-3xl font-bold text-[#160d1c] dark:text-white mb-4">
+						<h2 className="text-2xl sm:text-3xl font-medium text-[#14332D] dark:text-white mb-4">
 							Analysing Business Type
 						</h2>
-						<p className="text-[#794b9b] mb-8">
+						<p className="text-[#14332D] mb-8">
 							Our AI is evaluating the best Swedish entity type for your
 							business. This should only take a moment.
 						</p>
@@ -1500,7 +1500,7 @@ export default function Home() {
 							].map((step, i) => (
 								<div
 									key={step}
-									className="flex items-center gap-3 text-sm text-[#794b9b] animate-pulse"
+									className="flex items-center gap-3 text-sm text-[#14332D] animate-pulse"
 									style={{ animationDelay: `${i * 0.3}s` }}
 								>
 									<div className="w-2 h-2 rounded-full bg-primary" />
@@ -1515,12 +1515,12 @@ export default function Home() {
 				{view === "business-type-results" && businessTypeData && (
 					<div className="space-y-8">
 						<div className="text-center mb-4">
-							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
+							<h2 className="text-3xl sm:text-4xl font-medium leading-tight tracking-tight text-[#14332D] dark:text-white mb-2">
 								Business Type Recommendation
 							</h2>
-							<p className="text-[#794b9b]">
+							<p className="text-[#14332D]">
 								For{" "}
-								<span className="font-semibold text-[#160d1c] dark:text-white">
+								<span className="font-semibold text-[#14332D] dark:text-white">
 									{getChosenName()}
 								</span>
 							</p>
@@ -1548,7 +1548,7 @@ export default function Home() {
 									<span className="text-sm font-medium text-primary/60 text-white/60 uppercase tracking-wider">
 										Recommended
 									</span>
-									<h3 className="text-2xl sm:text-3xl font-bold">
+									<h3 className="text-2xl sm:text-3xl font-medium">
 										{businessTypeData.recommendedType}
 									</h3>
 								</div>
@@ -1564,7 +1564,7 @@ export default function Home() {
 								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
 								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 							>
-								<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
+								<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-4">
 									Alternative Options
 								</h3>
 								<div className="space-y-4">
@@ -1574,7 +1574,7 @@ export default function Home() {
 												key={i}
 												className="border border-primary/10 rounded-xl p-4"
 											>
-												<h4 className="font-semibold text-[#160d1c] dark:text-white mb-3">
+												<h4 className="font-medium text-[#14332D] dark:text-white mb-3">
 													{alt.type}
 												</h4>
 												<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1638,7 +1638,7 @@ export default function Home() {
 											!
 										</span>
 									</div>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white">
 										Important Considerations
 									</h3>
 								</div>
@@ -1683,12 +1683,12 @@ export default function Home() {
 									<path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
 								</svg>
 							</div>
-							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
+							<h2 className="text-3xl sm:text-4xl font-medium leading-tight tracking-tight text-[#14332D] dark:text-white mb-2">
 								Your Business Dashboard
 							</h2>
-							<p className="text-lg font-medium text-[#794b9b]">
+							<p className="text-lg font-medium text-[#14332D]">
 								Next steps to launch{" "}
-								<span className="font-semibold text-[#160d1c] dark:text-white">
+								<span className="font-semibold text-[#14332D] dark:text-white">
 									{getChosenName()}
 								</span>
 							</p>
@@ -1701,7 +1701,7 @@ export default function Home() {
 						>
 							<div className="flex items-center justify-between mb-4">
 								<div>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white">
 										Overall Progress
 									</h3>
 									<p className="text-sm text-slate-500 dark:text-slate-400">
@@ -1763,7 +1763,7 @@ export default function Home() {
 											{/* Step info */}
 											<div className="flex-1 min-w-0">
 												<div className="flex items-center gap-2">
-													<h3 className={`font-bold text-sm sm:text-base ${step.completed ? "text-primary" : "text-[#160d1c] dark:text-white"}`}>
+													<h3 className={`font-medium text-sm sm:text-base ${step.completed ? "text-primary" : "text-[#14332D] dark:text-white"}`}>
 														{step.step}
 													</h3>
 													{step.completed && (
@@ -1824,7 +1824,7 @@ export default function Home() {
 												index < dashboardSteps.length - 1 ? "border-b border-primary/10" : ""
 											}`}>
 												<div className="pl-14">
-													<h4 className="text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-4">
+													<h4 className="text-[10px] font-medium uppercase tracking-widest text-primary/60 mb-4">
 														{step.details.title}
 													</h4>
 													<div className="space-y-2">
@@ -1851,7 +1851,7 @@ export default function Home() {
 																	className={`text-sm leading-snug transition-colors ${
 																		bp.completed
 																			? "text-slate-400 dark:text-slate-500 line-through"
-																			: "text-slate-700 dark:text-slate-300 group-hover:text-[#160d1c] dark:group-hover:text-white"
+																			: "text-slate-700 dark:text-slate-300 group-hover:text-[#14332D] dark:group-hover:text-white"
 																	}`}
 																>
 																	{bp.text}
@@ -1879,13 +1879,13 @@ export default function Home() {
 									<path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 								</svg>
 							</div>
-							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
+							<h2 className="text-3xl sm:text-4xl font-medium leading-tight tracking-tight text-[#14332D] dark:text-white mb-2">
 								Daily Dashboard
 							</h2>
-							<p className="text-lg font-medium text-[#794b9b]">
+							<p className="text-lg font-medium text-[#14332D]">
 								{new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
 								{" \u2014 "}
-								<span className="font-semibold text-[#160d1c] dark:text-white">{getChosenName()}</span>
+								<span className="font-semibold text-[#14332D] dark:text-white">{getChosenName()}</span>
 							</p>
 						</div>
 
@@ -1897,7 +1897,7 @@ export default function Home() {
 									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
 									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 								>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-5">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-5">
 										Today&apos;s Financials
 									</h3>
 									<div className="grid grid-cols-2 gap-4">
@@ -1909,7 +1909,7 @@ export default function Home() {
 												type="number"
 												value={todayEntry.revenue || ""}
 												onChange={(e) => setTodayEntry({ ...todayEntry, revenue: Number(e.target.value) })}
-												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
+												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#14332D] text-[#14332D] dark:text-white placeholder:text-[#14332D]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
 												placeholder="0"
 											/>
 										</div>
@@ -1921,14 +1921,14 @@ export default function Home() {
 												type="number"
 												value={todayEntry.expenses || ""}
 												onChange={(e) => setTodayEntry({ ...todayEntry, expenses: Number(e.target.value) })}
-												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
+												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#14332D] text-[#14332D] dark:text-white placeholder:text-[#14332D]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
 												placeholder="0"
 											/>
 										</div>
 									</div>
 									<div className="mt-4 p-4 rounded-xl bg-primary/5 dark:bg-primary/10">
 										<div className="flex justify-between items-center">
-											<span className="font-medium text-[#160d1c] dark:text-white">Net Profit Today:</span>
+											<span className="font-medium text-[#14332D] dark:text-white">Net Profit Today:</span>
 											<span className={`text-2xl font-bold ${todayEntry.revenue - todayEntry.expenses >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
 												{(todayEntry.revenue - todayEntry.expenses).toLocaleString()} SEK
 											</span>
@@ -1941,13 +1941,13 @@ export default function Home() {
 									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
 									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 								>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-5">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-5">
 										Weekly Overview
 									</h3>
 									<div className="space-y-3">
 										{weeklyData.map((day, i) => (
 											<div key={i} className="space-y-1.5">
-												<div className="text-sm font-medium text-[#794b9b]">{day.day}</div>
+												<div className="text-sm font-medium text-[#14332D]">{day.day}</div>
 												<div className="flex gap-2 items-center">
 													<div className="flex-1 h-7 rounded-lg overflow-hidden relative bg-primary/5 dark:bg-primary/10">
 														<div
@@ -1978,11 +1978,11 @@ export default function Home() {
 									<div className="flex gap-4 mt-5 text-sm">
 										<div className="flex items-center gap-2">
 											<div className="w-3 h-3 rounded-full bg-emerald-500" />
-											<span className="text-[#794b9b]">Revenue</span>
+											<span className="text-[#14332D]">Revenue</span>
 										</div>
 										<div className="flex items-center gap-2">
 											<div className="w-3 h-3 rounded-full bg-red-400" />
-											<span className="text-[#794b9b]">Expenses</span>
+											<span className="text-[#14332D]">Expenses</span>
 										</div>
 									</div>
 								</div>
@@ -1992,7 +1992,7 @@ export default function Home() {
 									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
 									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 								>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-5">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-5">
 										Operations Check
 									</h3>
 									<div className="space-y-5">
@@ -2009,9 +2009,9 @@ export default function Home() {
 												className="w-full accent-primary"
 											/>
 											<div className="flex justify-between text-sm mt-1">
-												<span className="text-[#794b9b]">Poor</span>
-												<span className="font-bold text-lg text-[#160d1c] dark:text-white">{todayEntry.atmosphere}/10</span>
-												<span className="text-[#794b9b]">Excellent</span>
+												<span className="text-[#14332D]">Poor</span>
+												<span className="font-bold text-lg text-[#14332D] dark:text-white">{todayEntry.atmosphere}/10</span>
+												<span className="text-[#14332D]">Excellent</span>
 											</div>
 										</div>
 
@@ -2022,7 +2022,7 @@ export default function Home() {
 											<textarea
 												value={todayEntry.operationalIssues}
 												onChange={(e) => setTodayEntry({ ...todayEntry, operationalIssues: e.target.value })}
-												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all resize-none"
+												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#14332D] text-[#14332D] dark:text-white placeholder:text-[#14332D]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all resize-none"
 												rows={3}
 												placeholder="Any equipment broken? Anything needs replacement or repair?"
 											/>
@@ -2035,7 +2035,7 @@ export default function Home() {
 											<textarea
 												value={todayEntry.notes}
 												onChange={(e) => setTodayEntry({ ...todayEntry, notes: e.target.value })}
-												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all resize-none"
+												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#14332D] text-[#14332D] dark:text-white placeholder:text-[#14332D]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all resize-none"
 												rows={3}
 												placeholder="Any other observations or notes for today..."
 											/>
@@ -2061,7 +2061,7 @@ export default function Home() {
 									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6"
 									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 								>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-4">
 										Daily To-Dos
 									</h3>
 									<div className="space-y-3">
@@ -2088,7 +2088,7 @@ export default function Home() {
 													className={`text-sm leading-snug transition-colors ${
 														todo.completed
 															? "text-slate-400 dark:text-slate-500 line-through"
-															: "text-slate-700 dark:text-slate-300 group-hover:text-[#160d1c] dark:group-hover:text-white"
+															: "text-slate-700 dark:text-slate-300 group-hover:text-[#14332D] dark:group-hover:text-white"
 													}`}
 												>
 													{todo.text}
@@ -2103,7 +2103,7 @@ export default function Home() {
 									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6"
 									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 								>
-									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-4">
 										Upcoming Deadlines
 									</h3>
 									<div className="space-y-3">
@@ -2130,10 +2130,10 @@ export default function Home() {
 													>
 														<div className="flex items-start justify-between gap-2">
 															<div className="flex-1">
-																<div className="font-semibold text-sm text-[#160d1c] dark:text-white">
+																<div className="font-semibold text-sm text-[#14332D] dark:text-white">
 																	{deadline.title}
 																</div>
-																<div className="text-xs text-[#794b9b] mt-1">
+																<div className="text-xs text-[#14332D] mt-1">
 																	{new Date(deadline.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
 																</div>
 															</div>
@@ -2163,7 +2163,7 @@ export default function Home() {
 								<div
 									className="bg-primary rounded-2xl shadow-xl shadow-primary/20 p-6 text-white"
 								>
-									<h3 className="text-lg font-bold tracking-tight mb-4">
+									<h3 className="text-lg font-medium tracking-tight mb-4">
 										Quick Stats
 									</h3>
 									<div className="space-y-3 text-sm">
@@ -2200,7 +2200,7 @@ export default function Home() {
 			{/* Footer */}
 			<footer className="border-t border-primary/10 mt-12">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-					<p className="text-center text-[#794b9b]/70">
+					<p className="text-center text-[#14332D]/70">
 						&copy; 2026 Helping entrepreneurs build their dreams.
 					</p>
 				</div>

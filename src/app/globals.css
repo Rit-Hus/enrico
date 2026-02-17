@@ -1,27 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-	--background: #f7f6f8;
-	--foreground: #160d1c;
+	--background: #f7f7f1;
+	--foreground: #14332d;
+	--font-weight-normal: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background: #1b1022;
-		--foreground: #ffffff;
+		--background: #14332d;
+		--foreground: #f7f7f1;
 	}
 }
 
 body {
 	color: var(--foreground);
 	background: var(--background);
+	font-family: "Poppins", sans-serif;
 }
 
 /* Score Ring */
 .circular-progress {
-	background: conic-gradient(#9719f0 var(--score-deg, 0deg), #ddcfe8 0deg);
+	background: conic-gradient(#14332d var(--score-deg, 0deg), #d4ddd4 0deg);
 }
 
 @layer utilities {

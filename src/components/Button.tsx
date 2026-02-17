@@ -24,11 +24,10 @@ export default function Button({
 
 	const variantStyles = {
 		primary:
-			"bg-primary text-white shadow-xl shadow-primary/20 font-bold hover:shadow-primary/40",
+			"bg-primary text-white shadow-xl shadow-primary/20 font-medium hover:shadow-primary/40",
 		secondary:
-			"bg-slate-100 dark:bg-white/10 text-[#160d1c] dark:text-white font-bold",
-		outline:
-			"text-[#794b9b] dark:text-primary/60 font-medium",
+			"bg-slate-100 dark:bg-white/10 text-[#14332D] dark:text-white font-medium",
+		outline: "text-[#14332D]/60 dark:text-primary/60 font-medium",
 	};
 
 	const sizeStyles = {
