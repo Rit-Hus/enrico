@@ -9,7 +9,7 @@ async function main() {
     process.env.OPENROUTER_API_KEY!
   );
 
-  if (result.success) {
+  if (result.success === true) {
     console.log("Market Summary:", result.data.marketSummary.overview);
     console.log("Viability Score:", result.data.marketViabilityScore.overall, "/10");
     console.log("Competitors found:", result.data.keyCompetitors.length);
