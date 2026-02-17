@@ -9,32 +9,17 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: "#9719f0",
-				"background-light": "#f7f6f8",
-				"background-dark": "#1b1022",
-				background: "var(--background)",
-				foreground: "var(--foreground)",
-				primary: "#14332d",
-				gray: {
-					50: "#f9fafb",
-					100: "#f3f4f6",
-					200: "#e5e7eb",
-					300: "#d1d5db",
-					400: "#9ca3af",
-					500: "#6b7280",
-					600: "#14332d",
-					700: "#14332d",
-					800: "#14332d",
-					900: "#14332d",
-				},
+				primary: "#14332D",
+				blue: "#553CC9",
+				yellow: "#DFFE5B",
+				beige: "#F7F7F1",
+				"background-light": "#F7F7F1",
+				"background-dark": "#14332D",
 			},
 			fontFamily: {
-				sans: ["var(--font-poppins)", "ui-sans-serif", "system-ui"],
-				poppins: ["var(--font-poppins)"],
-			},
-			fontFamily: {
-				display: ["Inter", "sans-serif"],
+				display: ["Poppins", "sans-serif"],
 				poppins: ["Poppins", "sans-serif"],
+				inter: ["Inter", "sans-serif"],
 			},
 			borderRadius: {
 				DEFAULT: "0.5rem",

@@ -20,7 +20,7 @@ export default function Card({
 		>
 			{title && (
 				<div className="mb-4">
-					<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-1">
+					<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-1">
 						{title}
 					</h3>
 					{subtitle && (
