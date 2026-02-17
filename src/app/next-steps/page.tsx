@@ -410,6 +410,33 @@ export default function NextStepsPage() {
 						</p>
 					</div>
 				)}
+
+				{/* Daily Dashboard CTA */}
+				<div className="mt-12 p-8 rounded-xl text-center" style={{ backgroundColor: '#f7f7f1', border: '2px solid #ebebdf' }}>
+					<h3 className="text-2xl font-bold mb-3" style={{ color: '#14332d' }}>
+						Track Your Daily Progress
+					</h3>
+					<p className="mb-6 text-base" style={{ color: '#44795c' }}>
+						Monitor revenue, expenses, operational issues, and upcoming deadlines in your daily dashboard.
+					</p>
+					<Link href="/dashboard">
+						<button
+							className="px-8 py-3 font-semibold rounded-lg transition-all duration-200 text-base"
+							style={{
+								backgroundColor: '#14332d',
+								color: '#ffffff'
+							}}
+							onMouseEnter={(e) => {
+								e.currentTarget.style.backgroundColor = '#44795c';
+							}}
+							onMouseLeave={(e) => {
+								e.currentTarget.style.backgroundColor = '#14332d';
+							}}
+						>
+							Go to Daily Dashboard →
+						</button>
+					</Link>
+				</div>
 			</main>
 
 			{/* Footer */}
