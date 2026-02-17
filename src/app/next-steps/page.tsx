@@ -184,21 +184,22 @@ export default function NextStepsPage() {
 	const progressPercentage = (completedCount / totalCount) * 100;
 
 	return (
-		<div className="min-h-screen" style={{ backgroundColor: '#F5F1EB' }}>
+		<div className="min-h-screen" style={{ backgroundColor: '#f7f7f1' }}>
 			{/* Header */}
-			<header className="bg-white border-b border-gray-200">
+			<header style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #ebebdf' }}>
 				<nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 					<div className="flex items-center justify-between">
 						<div className="flex items-center gap-2">
-							<div className="w-8 h-8 bg-black rounded-md flex items-center justify-center">
-								<span className="text-white font-bold text-sm">R</span>
+							<div className="w-8 h-8 rounded-md flex items-center justify-center" style={{ backgroundColor: '#14332d' }}>
+								<span className="text-white font-bold text-sm">E</span>
 							</div>
-							<h1 className="text-2xl font-bold text-gray-900">Robin</h1>
+							<h1 className="text-2xl font-semibold" style={{ color: '#14332d' }}>Enrico</h1>
 						</div>
 						<div className="flex gap-6 items-center">
 							<Link
 								href="/"
-								className="text-gray-700 hover:text-gray-900 transition-colors text-sm"
+								className="transition-colors text-sm font-medium"
+								style={{ color: '#44795c' }}
 							>
 								← Back to Home
 							</Link>
@@ -208,31 +209,31 @@ export default function NextStepsPage() {
 			</header>
 
 			{/* Page Header */}
-			<div className="bg-white py-12 sm:py-16 border-b border-gray-200">
+			<div style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #ebebdf' }} className="py-12 sm:py-16">
 				<div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-					<h2 className="text-4xl sm:text-5xl font-bold mb-4 text-gray-900">
+					<h2 className="text-4xl sm:text-5xl font-bold mb-4" style={{ color: '#14332d' }}>
 						✓ Next Steps
 					</h2>
-					<p className="text-lg text-gray-600 mb-6">
+					<p className="text-lg mb-6" style={{ color: '#6a6a6b' }}>
 						Your personalized business roadmap
 					</p>
 
 					{/* Progress Indicator */}
-					<div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+					<div style={{ backgroundColor: '#f2f9e8', border: '1px solid #44795c' }} className="rounded-xl p-4">
 						<div className="flex justify-between items-center mb-2">
-							<span className="text-sm font-medium text-gray-700">
+							<span className="text-sm font-medium" style={{ color: '#14332d' }}>
 								Progress
 							</span>
-							<span className="text-sm font-medium text-gray-900">
+							<span className="text-sm font-semibold" style={{ color: '#44795c' }}>
 								{completedCount} of {totalCount} completed
 							</span>
 						</div>
-						<div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+						<div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#ebebdf' }}>
 							<div
 								className="h-full transition-all duration-500 ease-out rounded-full"
 								style={{ 
 									width: `${progressPercentage}%`,
-									backgroundColor: '#5CB85C'
+									backgroundColor: '#44795c'
 								}}
 							/>
 						</div>
@@ -246,11 +247,12 @@ export default function NextStepsPage() {
 					{steps.map((step, index) => (
 						<div
 							key={step.id}
-							className={`bg-white rounded-xl shadow-sm transition-all duration-200 border ${
-								step.completed
-									? "border-green-200 bg-green-50/30"
-									: "border-gray-200"
-							} ${expandedStep === step.id ? "shadow-md" : "hover:shadow-md"}`}
+							className={`rounded-xl transition-all duration-200`}
+							style={{
+								backgroundColor: step.completed ? '#f2f9e8' : '#ffffff',
+								border: step.completed ? '2px solid #44795c' : '1px solid #ebebdf',
+								boxShadow: expandedStep === step.id ? '0 4px 12px rgba(20, 51, 45, 0.1)' : '0 1px 3px rgba(0, 0, 0, 0.05)',
+							}}
 						>
 							{/* Step Header */}
 							<div
@@ -268,14 +270,18 @@ export default function NextStepsPage() {
 											id={`step-${step.id}`}
 											checked={step.completed}
 											onChange={() => toggleComplete(step.id)}
-											className="w-5 h-5 rounded border-2 border-gray-300 text-green-600 focus:ring-2 focus:ring-green-500 cursor-pointer transition-all"
+											className="w-5 h-5 rounded border-2 cursor-pointer transition-all"
+											style={{
+												borderColor: step.completed ? '#44795c' : '#aaaaab',
+												accentColor: '#44795c'
+											}}
 										/>
 									</div>
 
 									{/* Step Number Badge */}
 									<div
 										className="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white"
-										style={{ backgroundColor: '#5CB85C' }}
+										style={{ backgroundColor: '#44795c' }}
 									>
 										{index + 1}
 									</div>
@@ -283,15 +289,14 @@ export default function NextStepsPage() {
 									{/* Step Info */}
 									<div className="flex-1 min-w-0">
 										<h3
-											className={`text-lg sm:text-xl font-semibold mb-1 ${
-												step.completed
-													? "text-gray-500"
-													: "text-gray-900"
-											}`}
+											className="text-lg sm:text-xl font-semibold mb-1"
+											style={{
+												color: step.completed ? '#6a6a6b' : '#14332d'
+											}}
 										>
 											{step.step}
 										</h3>
-										<p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+										<p className="text-sm sm:text-base leading-relaxed" style={{ color: '#6a6a6b' }}>
 											{step.description}
 										</p>
 										{step.url && expandedStep !== step.id && (
@@ -300,7 +305,8 @@ export default function NextStepsPage() {
 												target="_blank"
 												rel="noopener noreferrer"
 												onClick={(e) => e.stopPropagation()}
-												className="inline-block mt-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
+												className="inline-block mt-2 text-sm font-medium transition-colors"
+												style={{ color: '#44795c' }}
 											>
 												Visit →
 											</a>
@@ -310,11 +316,11 @@ export default function NextStepsPage() {
 									{/* Expand Icon */}
 									<div className="flex-shrink-0">
 										<div
-											className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
-												expandedStep === step.id
-													? "bg-gray-100 text-gray-700"
-													: "bg-gray-50 text-gray-500 hover:bg-gray-100"
-											}`}
+											className="w-10 h-10 rounded-lg flex items-center justify-center transition-all"
+											style={{
+												backgroundColor: expandedStep === step.id ? '#ebebdf' : '#f7f7f1',
+												color: '#14332d'
+											}}
 										>
 											<span className="text-2xl font-light">
 												{expandedStep === step.id ? "−" : "+"}
@@ -326,9 +332,9 @@ export default function NextStepsPage() {
 
 							{/* Expanded Details */}
 							{expandedStep === step.id && (
-								<div className="border-t border-gray-200 p-5 sm:p-6 bg-gray-50">
+								<div className="p-5 sm:p-6" style={{ backgroundColor: '#f7f7f1', borderTop: '1px solid #ebebdf' }}>
 									<div className="ml-0 sm:ml-16">
-										<h4 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4">
+										<h4 className="text-lg sm:text-xl font-semibold mb-4" style={{ color: '#14332d' }}>
 											{step.details.title}
 										</h4>
 										<ul className="space-y-3">
@@ -342,15 +348,19 @@ export default function NextStepsPage() {
 														id={`bullet-${bullet.id}`}
 														checked={bullet.completed}
 														onChange={() => toggleBulletPoint(step.id, bullet.id)}
-														className="w-4 h-4 mt-0.5 rounded border-2 border-gray-300 text-green-600 focus:ring-2 focus:ring-green-500 cursor-pointer transition-all flex-shrink-0"
+														className="w-4 h-4 mt-0.5 rounded border-2 cursor-pointer transition-all flex-shrink-0"
+														style={{
+															borderColor: bullet.completed ? '#44795c' : '#aaaaab',
+															accentColor: '#44795c'
+														}}
 													/>
 													<label
 														htmlFor={`bullet-${bullet.id}`}
-														className={`text-sm sm:text-base leading-relaxed cursor-pointer ${
-															bullet.completed
-																? "text-gray-500 line-through"
-																: "text-gray-700"
-														}`}
+														className="text-sm sm:text-base leading-relaxed cursor-pointer"
+														style={{
+															color: bullet.completed ? '#aaaaab' : '#14332d',
+															textDecoration: bullet.completed ? 'line-through' : 'none'
+														}}
 													>
 														{bullet.text}
 													</label>
@@ -362,7 +372,17 @@ export default function NextStepsPage() {
 												href={step.url}
 												target="_blank"
 												rel="noopener noreferrer"
-												className="inline-block mt-6 px-5 py-2.5 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-all duration-200 text-sm"
+												className="inline-block mt-6 px-5 py-2.5 font-medium rounded-lg transition-all duration-200 text-sm"
+												style={{
+													backgroundColor: '#14332d',
+													color: '#ffffff'
+												}}
+												onMouseEnter={(e) => {
+													e.currentTarget.style.backgroundColor = '#44795c';
+												}}
+												onMouseLeave={(e) => {
+													e.currentTarget.style.backgroundColor = '#14332d';
+												}}
 											>
 												Visit{" "}
 												{step.url
@@ -380,12 +400,12 @@ export default function NextStepsPage() {
 
 				{/* Completion Message */}
 				{completedCount === totalCount && (
-					<div className="mt-8 p-6 bg-white border-2 border-green-300 rounded-xl text-center">
+					<div className="mt-8 p-6 rounded-xl text-center" style={{ backgroundColor: '#f2f9e8', border: '2px solid #44795c' }}>
 						<div className="text-5xl mb-3">🎉</div>
-						<h3 className="text-2xl font-bold text-gray-900 mb-2">
+						<h3 className="text-2xl font-bold mb-2" style={{ color: '#14332d' }}>
 							Congratulations!
 						</h3>
-						<p className="text-gray-600">
+						<p style={{ color: '#44795c' }}>
 							You&apos;ve completed all steps. Your business is ready to launch!
 						</p>
 					</div>
@@ -393,10 +413,10 @@ export default function NextStepsPage() {
 			</main>
 
 			{/* Footer */}
-			<footer className="border-t border-gray-200 bg-white mt-12">
+			<footer className="mt-12" style={{ borderTop: '1px solid #ebebdf', backgroundColor: '#ffffff' }}>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-					<p className="text-center text-gray-600 text-sm">
-						© 2026 Robin. Helping entrepreneurs build their dreams.
+					<p className="text-center text-sm" style={{ color: '#6a6a6b' }}>
+						© 2026 Enrico. Helping entrepreneurs build their dreams.
 					</p>
 				</div>
 			</footer>
