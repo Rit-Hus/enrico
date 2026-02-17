@@ -1,0 +1,5 @@
+{
+  "name": "BusinessTask AI",
+  "description": "An AI-powered startup assistant that generates actionable tasks, tracks business stages, and manages compliance reminders based on your business context.",
+  "requestFramePermissions": []
+}
