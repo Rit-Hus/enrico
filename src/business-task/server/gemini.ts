@@ -1,10 +1,14 @@
-import { GoogleGenAI, Type } from "@google/genai";
 import { BusinessProfile, ChatMessage, Task, TaskPriority, TaskType, StrategicAnalysis } from "../types";
 import { BUSINESS_KNOWLEDGE_BASE } from "../data/businessKnowledge";
 import { STOCKHOLM_MARKET_DATA, GLOBAL_SEO_BENCHMARKS } from "../data/stockholmMarketData";
 
-const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY || "";
-const ai = new GoogleGenAI({ apiKey });
+const apiKey =
+  process.env.OPENROUTER_API_KEY ||
+  process.env.OpenRouter ||
+  process.env.OPENROUTER ||
+  "";
+const model = process.env.OPENROUTER_MODEL || "openai/gpt-4o-mini";
+const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 const ONBOARDING_SYSTEM_INSTRUCTION = `
 ### ROLE
@@ -33,6 +37,48 @@ Reference the Knowledge Base for facts:
 ${BUSINESS_KNOWLEDGE_BASE}
 `;
 
+const callOpenRouter = async (messages: Array<{ role: string; content: string }>, options?: { json?: boolean; temperature?: number }) => {
+  if (!apiKey) {
+    throw new Error("OpenRouter API key is missing.");
+  }
+
+  const response = await fetch(OPENROUTER_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+      "X-Title": "BusinessTask AI"
+    },
+    body: JSON.stringify({
+      model,
+      messages,
+      temperature: options?.temperature ?? 0.4,
+      response_format: options?.json ? { type: "json_object" } : undefined
+    })
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    const errorMessage = data?.error?.message || "OpenRouter request failed.";
+    throw new Error(errorMessage);
+  }
+
+  return data?.choices?.[0]?.message?.content || "";
+};
+
+const callOpenRouterJson = async (messages: Array<{ role: string; content: string }>, options?: { temperature?: number }) => {
+  const content = await callOpenRouter(messages, { json: true, temperature: options?.temperature });
+  try {
+    return JSON.parse(content);
+  } catch (error) {
+    const match = content.match(/\{[\s\S]*\}/);
+    if (match) {
+      return JSON.parse(match[0]);
+    }
+    throw error;
+  }
+};
+
 export const sendOnboardingMessage = async (
   history: ChatMessage[],
   message: string
@@ -45,17 +91,14 @@ export const sendOnboardingMessage = async (
       User's latest input: ${message}
     `;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: fullPrompt,
-      config: {
-        systemInstruction: ONBOARDING_SYSTEM_INSTRUCTION,
-      }
-    });
+    const responseText = await callOpenRouter([
+      { role: "system", content: ONBOARDING_SYSTEM_INSTRUCTION },
+      { role: "user", content: fullPrompt }
+    ], { temperature: 0.3 });
 
-    return response.text || "I'm listening.";
+    return responseText || "I'm listening.";
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    console.error("OpenRouter API Error:", error);
     return "Connection error. Please check your API key.";
   }
 };
@@ -74,31 +117,12 @@ export const extractProfileFromHistory = async (
     ${history.map(h => `${h.role}: ${h.text}`).join("\n")}
   `;
 
-  const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
-    contents: prompt,
-    config: {
-      responseMimeType: "application/json",
-      responseSchema: {
-        type: Type.OBJECT,
-        properties: {
-          industry: { type: Type.STRING },
-          targetAudience: { type: Type.STRING },
-          productType: { type: Type.STRING },
-          budget: { type: Type.STRING },
-          launchDate: { type: Type.STRING, description: "A future date, default to 3 months from now if unknown" },
-          businessType: { type: Type.STRING, enum: ["New Startup", "Existing Business"] },
-          targetRegion: { type: Type.STRING, enum: ["Local", "National", "Global"] },
-          websiteUrl: { type: Type.STRING, nullable: true },
-          goldenNuggets: { type: Type.ARRAY, items: { type: Type.STRING } }
-        },
-        required: ["industry", "targetAudience", "productType", "budget", "launchDate", "businessType", "targetRegion"]
-      }
-    }
-  });
+  const content = await callOpenRouterJson([
+    { role: "system", content: "Return JSON only, no markdown." },
+    { role: "user", content: prompt }
+  ], { temperature: 0.2 });
 
-  const text = response.text || "{}";
-  return JSON.parse(text);
+  return content as BusinessProfile;
 }
 
 export const generateStrategicAnalysis = async (
@@ -147,85 +171,12 @@ export const generateStrategicAnalysis = async (
     Return a SINGLE JSON object matching the provided schema.
   `;
 
-  const response = await ai.models.generateContent({
-    model: "gemini-3-flash-preview",
-    contents: prompt,
-    config: {
-      temperature: 0,
-      responseMimeType: "application/json",
-      responseSchema: {
-        type: Type.OBJECT,
-        properties: {
-          elevatorPitch: { type: Type.STRING, description: "A concise summary of the business idea" },
-          unfairAdvantage: { type: Type.STRING, description: "Extracted golden nuggets/skills" },
-          currentFocus: { type: Type.STRING },
-          complianceRisks: { type: Type.ARRAY, items: { type: Type.STRING } },
-          sanityCheck: { type: Type.STRING, description: "1-sentence realistic/brutal assessment" },
-          
-          marketIntelligence: {
-            type: Type.OBJECT,
-            properties: {
-              type: { type: Type.STRING, enum: ["SEO", "LOCAL"] },
-              summary: { type: Type.STRING },
-              metrics: {
-                type: Type.ARRAY,
-                items: {
-                  type: Type.OBJECT,
-                  properties: {
-                    label: { type: Type.STRING },
-                    value: { type: Type.STRING },
-                    trend: { type: Type.STRING, enum: ["up", "down", "neutral"] }
-                  }
-                }
-              },
-              topCompetitors: { type: Type.ARRAY, items: { type: Type.STRING } },
-              inferredCompetitorCount: { type: Type.NUMBER },
-              viabilityScore: { type: Type.NUMBER },
-              marketGap: { type: Type.STRING },
-              strategicPivot: {
-                type: Type.OBJECT,
-                properties: {
-                   suggestedLocation: { type: Type.STRING },
-                   reasoning: { type: Type.STRING }
-                },
-                nullable: true
-              }
-            }
-          },
+  const content = await callOpenRouterJson([
+    { role: "system", content: "Return a single JSON object only. No markdown." },
+    { role: "user", content: prompt }
+  ], { temperature: 0 });
 
-          suggestedNames: { type: Type.ARRAY, items: { type: Type.STRING } },
-          legalStructure: { type: Type.STRING, enum: ["Aktiebolag", "Enskild Firma"] },
-          legalReasoning: { type: Type.STRING },
-          setupChecklist: {
-            type: Type.ARRAY,
-            items: {
-              type: Type.OBJECT,
-              properties: {
-                task: { type: Type.STRING },
-                url: { type: Type.STRING }
-              }
-            }
-          },
-
-          financialFeasibility: {
-            type: Type.OBJECT,
-            properties: {
-              estimatedStartupCost: { type: Type.NUMBER },
-              monthlyBreakEvenRevenue: { type: Type.NUMBER },
-              isAchievable: { type: Type.BOOLEAN },
-              reasoning: { type: Type.STRING },
-              financialAdvice: { type: Type.STRING }
-            },
-            required: ["estimatedStartupCost", "monthlyBreakEvenRevenue", "isAchievable", "reasoning"]
-          }
-        },
-        required: ["elevatorPitch", "marketIntelligence", "financialFeasibility", "suggestedNames", "legalStructure"]
-      }
-    }
-  });
-
-  const text = response.text || "{}";
-  return JSON.parse(text);
+  return content as StrategicAnalysis;
 };
 
 export const sendMessageToGemini = async (
@@ -258,17 +209,14 @@ export const sendMessageToGemini = async (
       If they seem ready for the next stage, offer choices: Marketing (Get more), Production (Handle more), or Freedom (Work less/Delegate).
     `;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: fullPrompt,
-      config: {
-        systemInstruction: SYSTEM_INSTRUCTION,
-      }
-    });
+    const responseText = await callOpenRouter([
+      { role: "system", content: SYSTEM_INSTRUCTION },
+      { role: "user", content: fullPrompt }
+    ], { temperature: 0.5 });
 
-    return response.text || "I'm sorry, I couldn't generate a response.";
+    return responseText || "I'm sorry, I couldn't generate a response.";
   } catch (error) {
-    console.error("Gemini API Error:", error);
+    console.error("OpenRouter API Error:", error);
     return "Error connecting to AI assistant. Please check your API key.";
   }
 };
@@ -300,40 +248,10 @@ export const generateTasksFromContext = async (
       Return JSON.
     `;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
-      contents: prompt,
-      config: {
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            theme: { type: Type.STRING, description: "The overarching theme of these tasks" },
-            analysis: { 
-              type: Type.STRING, 
-              description: "Brief reasoning for this focus area. Explain why we are prioritizing these over old tasks." 
-            },
-            tasks: {
-              type: Type.ARRAY,
-              items: {
-                type: Type.OBJECT,
-                properties: {
-                  title: { type: Type.STRING },
-                  description: { type: Type.STRING },
-                  priority: { type: Type.STRING, enum: [TaskPriority.HIGH, TaskPriority.MEDIUM, TaskPriority.LOW] },
-                  type: { type: Type.STRING, enum: [TaskType.VALIDATION, TaskType.ACQUISITION, TaskType.CONVERSION, TaskType.ADMIN, TaskType.PRODUCT] }
-                },
-                required: ["title", "description", "priority", "type"]
-              }
-            }
-          },
-          required: ["theme", "analysis", "tasks"]
-        }
-      }
-    });
-
-    const text = response.text || "{}";
-    const parsed = JSON.parse(text);
+    const parsed = await callOpenRouterJson([
+      { role: "system", content: "Return JSON only, no markdown." },
+      { role: "user", content: prompt }
+    ], { temperature: 0.2 });
     
     const mappedTasks = (parsed.tasks || []).slice(0, 5).map((item: any) => ({
       id: crypto.randomUUID(),
