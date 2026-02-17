@@ -59,6 +59,168 @@ interface BusinessTypeAssessment {
 	considerations: string[];
 }
 
+interface DailyEntry {
+	date: string;
+	revenue: number;
+	expenses: number;
+	atmosphere: number;
+	operationalIssues: string;
+	notes: string;
+}
+
+interface DailyTodo {
+	id: number;
+	text: string;
+	completed: boolean;
+}
+
+interface Deadline {
+	id: number;
+	title: string;
+	date: string;
+	type: "tax" | "salary" | "invoice" | "other";
+	completed: boolean;
+}
+
+interface WeeklyDataPoint {
+	day: string;
+	revenue: number;
+	expenses: number;
+}
+
+const mockTodos: DailyTodo[] = [
+	{ id: 1, text: "Follow up on unpaid invoices", completed: false },
+	{ id: 2, text: "Check and reply to business emails", completed: false },
+	{ id: 3, text: "Review inventory levels", completed: false },
+	{ id: 4, text: "Update social media", completed: false },
+];
+
+const mockDeadlines: Deadline[] = [
+	{ id: 1, title: "VAT Payment (Moms)", date: "2026-02-26", type: "tax", completed: false },
+	{ id: 2, title: "Salary Payment", date: "2026-02-28", type: "salary", completed: false },
+	{ id: 3, title: "Invoice #1234 - Due", date: "2026-02-20", type: "invoice", completed: false },
+	{ id: 4, title: "Quarterly Tax Report", date: "2026-03-31", type: "tax", completed: false },
+];
+
+const mockWeeklyData: WeeklyDataPoint[] = [
+	{ day: "Mon", revenue: 12500, expenses: 4200 },
+	{ day: "Tue", revenue: 15000, expenses: 3800 },
+	{ day: "Wed", revenue: 13200, expenses: 4500 },
+	{ day: "Thu", revenue: 16800, expenses: 4100 },
+	{ day: "Fri", revenue: 18500, expenses: 5200 },
+	{ day: "Sat", revenue: 21000, expenses: 5800 },
+];
+
+interface BulletPoint {
+	id: string;
+	text: string;
+	completed: boolean;
+}
+
+interface NextStep {
+	id: number;
+	step: string;
+	description: string;
+	url?: string;
+	completed: boolean;
+	details: {
+		title: string;
+		bulletPoints: BulletPoint[];
+	};
+}
+
+const initialSteps: NextStep[] = [
+	{
+		id: 1,
+		step: "Register your business",
+		description: "Register with Bolagsverket to establish your business entity.",
+		url: "https://bolagsverket.se",
+		completed: false,
+		details: {
+			title: "How to Register Your Business",
+			bulletPoints: [
+				{ id: "1-1", text: "Choose your business structure (aktiebolag, enskild firma, handelsbolag)", completed: false },
+				{ id: "1-2", text: "Prepare required documents: valid ID, business plan, and ownership details", completed: false },
+				{ id: "1-3", text: "Visit Bolagsverket's website and complete the online registration form", completed: false },
+				{ id: "1-4", text: "Pay the registration fee (approximately 1,000-1,400 SEK depending on business type)", completed: false },
+				{ id: "1-5", text: "Wait 2-5 business days for approval and registration confirmation", completed: false },
+				{ id: "1-6", text: "Receive your organizational number (organisationsnummer) by mail", completed: false },
+			],
+		},
+	},
+	{
+		id: 2,
+		step: "Get F-tax approval",
+		description: "Apply for F-skattsedel through Skatteverket to invoice clients.",
+		url: "https://skatteverket.se",
+		completed: false,
+		details: {
+			title: "F-tax Approval Process",
+			bulletPoints: [
+				{ id: "2-1", text: "Ensure your business is registered with Bolagsverket first", completed: false },
+				{ id: "2-2", text: "Log in to Skatteverket's e-service 'Mina sidor företag' with BankID", completed: false },
+				{ id: "2-3", text: "Navigate to 'Skattekonto' and select 'Ansök om F-skatt'", completed: false },
+				{ id: "2-4", text: "Fill out form SKV 4620 with your business information", completed: false },
+				{ id: "2-5", text: "Submit required documentation (business registration certificate)", completed: false },
+				{ id: "2-6", text: "Approval typically takes 4-6 weeks; you'll receive confirmation by mail", completed: false },
+			],
+		},
+	},
+	{
+		id: 3,
+		step: "Open business bank account",
+		description: "Set up banking with SEB, Nordea, or Handelsbanken for your business finances.",
+		completed: false,
+		details: {
+			title: "Opening a Business Bank Account",
+			bulletPoints: [
+				{ id: "3-1", text: "Research banks: Compare SEB, Nordea, Handelsbanken, and Swedbank for fees and services", completed: false },
+				{ id: "3-2", text: "Book an in-person appointment at your chosen bank (required for business accounts)", completed: false },
+				{ id: "3-3", text: "Bring required documents: business registration, organizational number, valid ID, F-tax certificate", completed: false },
+				{ id: "3-4", text: "Discuss monthly fees and transaction costs (typically 200-500 SEK/month)", completed: false },
+				{ id: "3-5", text: "Set up digital banking access (BankID, Swish for businesses)", completed: false },
+				{ id: "3-6", text: "Order payment terminal if accepting card payments (additional monthly cost)", completed: false },
+			],
+		},
+	},
+	{
+		id: 4,
+		step: "Secure location lease",
+		description: "Visit Åkersberga and schedule property viewings for your restaurant space.",
+		completed: false,
+		details: {
+			title: "Finding Your Restaurant Location",
+			bulletPoints: [
+				{ id: "4-1", text: "Contact local real estate agents in Åkersberga specializing in commercial properties", completed: false },
+				{ id: "4-2", text: "Search online platforms: Blocket, Hemnet Företag, and Fastighetsbyrån", completed: false },
+				{ id: "4-3", text: "Visit Åkersberga to assess foot traffic in different neighborhoods", completed: false },
+				{ id: "4-4", text: "Calculate space needs: 60-100 sqm for a small restaurant (15-30 seats)", completed: false },
+				{ id: "4-5", text: "Negotiate lease terms: typically 3-5 year contracts with 3-6 month deposits required", completed: false },
+				{ id: "4-6", text: "Review lease carefully for restrictions on food service, ventilation, and modifications", completed: false },
+				{ id: "4-7", text: "Budget for monthly rent: expect 8,000-15,000 SEK/month in Åkersberga", completed: false },
+			],
+		},
+	},
+	{
+		id: 5,
+		step: "Apply for permits",
+		description: "Contact local municipality for food service and alcohol permits if needed.",
+		completed: false,
+		details: {
+			title: "Required Permits and Licenses",
+			bulletPoints: [
+				{ id: "5-1", text: "Food service permit: Contact environmental department (miljö- och hälsoskydd) at Österåker kommun", completed: false },
+				{ id: "5-2", text: "Schedule inspection of your premises by health inspector before opening", completed: false },
+				{ id: "5-3", text: "Complete food safety course (Livsmedelshygien) - required for all food handlers", completed: false },
+				{ id: "5-4", text: "If serving alcohol: Apply for alcohol license (alkoholtillstånd) 4-6 months in advance", completed: false },
+				{ id: "5-5", text: "Budget for alcohol license: 10,000-25,000 SEK application fee plus annual renewal costs", completed: false },
+				{ id: "5-6", text: "Signage permit (skyltlov) if installing outdoor signs - check with building department", completed: false },
+				{ id: "5-7", text: "Outdoor seating permit (serveringstillstånd) if planning a patio - requires separate application", completed: false },
+			],
+		},
+	},
+];
+
 type AppView =
 	| "form"
 	| "ready"
@@ -69,7 +231,8 @@ type AppView =
 	| "naming"
 	| "business-type"
 	| "business-type-loading"
-	| "business-type-results";
+	| "business-type-results"
+	| "dashboard";
 
 function ScoreBar({ label, value }: { label: string; value: number }) {
 	const percentage = (value / 10) * 100;
@@ -145,6 +308,68 @@ export default function Home() {
 	const [useCustomName, setUseCustomName] = useState(false);
 	const [businessTypeData, setBusinessTypeData] =
 		useState<BusinessTypeAssessment | null>(null);
+	const [dashboardSteps, setDashboardSteps] = useState<NextStep[]>(initialSteps);
+	const [expandedStepId, setExpandedStepId] = useState<number | null>(null);
+
+	// Daily check-in state
+	const [todayEntry, setTodayEntry] = useState<DailyEntry>({
+		date: new Date().toISOString().split("T")[0],
+		revenue: 0,
+		expenses: 0,
+		atmosphere: 7,
+		operationalIssues: "",
+		notes: "",
+	});
+	const [dailyTodos, setDailyTodos] = useState<DailyTodo[]>(mockTodos);
+	const [deadlines] = useState<Deadline[]>(mockDeadlines);
+
+	const weeklyData: WeeklyDataPoint[] = [
+		...mockWeeklyData,
+		{ day: "Today", revenue: todayEntry.revenue, expenses: todayEntry.expenses },
+	];
+
+	const toggleDailyTodo = (id: number) => {
+		setDailyTodos((prev) =>
+			prev.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo)),
+		);
+	};
+
+	const getDaysUntil = (dateString: string) => {
+		const deadline = new Date(dateString);
+		const today = new Date();
+		return Math.ceil((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+	};
+
+	const maxChartValue = Math.max(...weeklyData.map((d) => Math.max(d.revenue, d.expenses)), 1);
+	const allStepsCompleted = dashboardSteps.every((s) => s.completed);
+
+	const toggleBulletPoint = (stepId: number, bulletId: string) => {
+		setDashboardSteps((prev) =>
+			prev.map((step) => {
+				if (step.id !== stepId) return step;
+				const updatedBullets = step.details.bulletPoints.map((bp) =>
+					bp.id === bulletId ? { ...bp, completed: !bp.completed } : bp,
+				);
+				const allDone = updatedBullets.every((bp) => bp.completed);
+				return {
+					...step,
+					completed: allDone,
+					details: { ...step.details, bulletPoints: updatedBullets },
+				};
+			}),
+		);
+	};
+
+	const toggleStepExpand = (stepId: number) => {
+		setExpandedStepId((prev) => (prev === stepId ? null : stepId));
+	};
+
+	const completedStepsCount = dashboardSteps.filter((s) => s.completed).length;
+	const totalBulletPoints = dashboardSteps.reduce((acc, s) => acc + s.details.bulletPoints.length, 0);
+	const completedBulletPoints = dashboardSteps.reduce(
+		(acc, s) => acc + s.details.bulletPoints.filter((bp) => bp.completed).length,
+		0,
+	);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -277,6 +502,8 @@ export default function Home() {
 									setCustomName("");
 									setUseCustomName(false);
 									setBusinessTypeData(null);
+								setDashboardSteps(initialSteps);
+								setExpandedStepId(null);
 								}}
 								className="text-[#794b9b] hover:text-primary transition-colors text-sm"
 							>
@@ -1432,6 +1659,540 @@ export default function Home() {
 								</ul>
 							</div>
 						)}
+
+						{/* Go to Dashboard */}
+						<div className="text-center pt-4">
+							<Button
+								onClick={() => setView("dashboard")}
+								variant="primary"
+								size="lg"
+							>
+								Go to Dashboard
+							</Button>
+						</div>
+					</div>
+				)}
+
+				{/* -- DASHBOARD VIEW -- */}
+				{view === "dashboard" && !allStepsCompleted && (
+					<div className="space-y-8">
+						{/* Dashboard Header */}
+						<div className="text-center mb-4">
+							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary flex items-center justify-center">
+								<svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+									<path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+								</svg>
+							</div>
+							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
+								Your Business Dashboard
+							</h2>
+							<p className="text-lg font-medium text-[#794b9b]">
+								Next steps to launch{" "}
+								<span className="font-semibold text-[#160d1c] dark:text-white">
+									{getChosenName()}
+								</span>
+							</p>
+						</div>
+
+						{/* Progress Overview */}
+						<div
+							className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+						>
+							<div className="flex items-center justify-between mb-4">
+								<div>
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
+										Overall Progress
+									</h3>
+									<p className="text-sm text-slate-500 dark:text-slate-400">
+										{completedStepsCount} of {dashboardSteps.length} steps completed
+									</p>
+								</div>
+								<div className="text-right">
+									<span className="text-3xl font-bold tracking-tighter text-primary">
+										{totalBulletPoints > 0 ? Math.round((completedBulletPoints / totalBulletPoints) * 100) : 0}%
+									</span>
+								</div>
+							</div>
+							<div className="h-3 bg-primary/10 dark:bg-primary/5 rounded-full overflow-hidden">
+								<div
+									className="h-full bg-primary rounded-full transition-all duration-700 ease-out"
+									style={{ width: `${totalBulletPoints > 0 ? (completedBulletPoints / totalBulletPoints) * 100 : 0}%` }}
+								/>
+							</div>
+						</div>
+
+						{/* Steps Checklist */}
+						<div
+							className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 overflow-hidden"
+							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+						>
+							{dashboardSteps.map((step, index) => {
+								const isExpanded = expandedStepId === step.id;
+								const stepCompletedBullets = step.details.bulletPoints.filter((bp) => bp.completed).length;
+								const stepTotalBullets = step.details.bulletPoints.length;
+
+								return (
+									<div key={step.id}>
+										{/* Step Header */}
+										<button
+											onClick={() => toggleStepExpand(step.id)}
+											className={`w-full flex items-center gap-4 p-5 sm:p-6 text-left transition-colors hover:bg-primary/[0.02] dark:hover:bg-white/[0.02] ${
+												index < dashboardSteps.length - 1 && !isExpanded
+													? "border-b border-primary/10"
+													: ""
+											}`}
+										>
+											{/* Step number / check */}
+											<div
+												className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-all ${
+													step.completed
+														? "bg-primary text-white"
+														: "border-2 border-primary/20 text-primary"
+												}`}
+											>
+												{step.completed ? (
+													<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+														<path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+													</svg>
+												) : (
+													<span className="text-sm font-bold">{step.id}</span>
+												)}
+											</div>
+
+											{/* Step info */}
+											<div className="flex-1 min-w-0">
+												<div className="flex items-center gap-2">
+													<h3 className={`font-bold text-sm sm:text-base ${step.completed ? "text-primary" : "text-[#160d1c] dark:text-white"}`}>
+														{step.step}
+													</h3>
+													{step.completed && (
+														<span className="bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+															Done
+														</span>
+													)}
+												</div>
+												<p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5 leading-snug">
+													{step.description}
+												</p>
+												{!step.completed && stepCompletedBullets > 0 && (
+													<div className="flex items-center gap-2 mt-2">
+														<div className="flex-1 max-w-[120px] h-1.5 bg-primary/10 rounded-full overflow-hidden">
+															<div
+																className="h-full bg-primary rounded-full transition-all duration-500"
+																style={{ width: `${(stepCompletedBullets / stepTotalBullets) * 100}%` }}
+															/>
+														</div>
+														<span className="text-[10px] font-bold text-primary/60">
+															{stepCompletedBullets}/{stepTotalBullets}
+														</span>
+													</div>
+												)}
+											</div>
+
+											{/* URL indicator + Expand */}
+											<div className="flex items-center gap-2 flex-shrink-0">
+												{step.url && (
+													<a
+														href={step.url}
+														target="_blank"
+														rel="noopener noreferrer"
+														onClick={(e) => e.stopPropagation()}
+														className="w-8 h-8 rounded-full bg-primary/5 dark:bg-primary/10 flex items-center justify-center text-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-colors"
+														title={`Visit ${step.url}`}
+													>
+														<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+															<path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+														</svg>
+													</a>
+												)}
+												<svg
+													className={`w-5 h-5 text-slate-400 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
+													fill="none"
+													viewBox="0 0 24 24"
+													stroke="currentColor"
+													strokeWidth={2}
+												>
+													<path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+												</svg>
+											</div>
+										</button>
+
+										{/* Expanded Details */}
+										{isExpanded && (
+											<div className={`bg-primary/[0.02] dark:bg-white/[0.02] px-5 sm:px-6 pb-5 sm:pb-6 ${
+												index < dashboardSteps.length - 1 ? "border-b border-primary/10" : ""
+											}`}>
+												<div className="pl-14">
+													<h4 className="text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-4">
+														{step.details.title}
+													</h4>
+													<div className="space-y-2">
+														{step.details.bulletPoints.map((bp) => (
+															<button
+																key={bp.id}
+																onClick={() => toggleBulletPoint(step.id, bp.id)}
+																className="w-full flex items-start gap-3 text-left group py-1"
+															>
+																<div
+																	className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5 transition-all border ${
+																		bp.completed
+																			? "bg-primary border-primary text-white"
+																			: "border-slate-300 dark:border-slate-600 group-hover:border-primary/50"
+																	}`}
+																>
+																	{bp.completed && (
+																		<svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+																			<path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+																		</svg>
+																	)}
+																</div>
+																<span
+																	className={`text-sm leading-snug transition-colors ${
+																		bp.completed
+																			? "text-slate-400 dark:text-slate-500 line-through"
+																			: "text-slate-700 dark:text-slate-300 group-hover:text-[#160d1c] dark:group-hover:text-white"
+																	}`}
+																>
+																	{bp.text}
+																</span>
+															</button>
+														))}
+													</div>
+												</div>
+											</div>
+										)}
+									</div>
+								);
+							})}
+						</div>
+					</div>
+				)}
+
+				{/* -- DAILY CHECK-IN VIEW (shown when all steps completed) -- */}
+				{view === "dashboard" && allStepsCompleted && (
+					<div className="space-y-8">
+						{/* Daily Check-in Header */}
+						<div className="text-center mb-4">
+							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary flex items-center justify-center">
+								<svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+									<path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+								</svg>
+							</div>
+							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
+								Daily Dashboard
+							</h2>
+							<p className="text-lg font-medium text-[#794b9b]">
+								{new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+								{" \u2014 "}
+								<span className="font-semibold text-[#160d1c] dark:text-white">{getChosenName()}</span>
+							</p>
+						</div>
+
+						<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+							{/* Main Content (2 cols) */}
+							<div className="lg:col-span-2 space-y-6">
+								{/* Today's Financials */}
+								<div
+									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+								>
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-5">
+										Today&apos;s Financials
+									</h3>
+									<div className="grid grid-cols-2 gap-4">
+										<div>
+											<label className="block text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-2">
+												Revenue (SEK)
+											</label>
+											<input
+												type="number"
+												value={todayEntry.revenue || ""}
+												onChange={(e) => setTodayEntry({ ...todayEntry, revenue: Number(e.target.value) })}
+												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
+												placeholder="0"
+											/>
+										</div>
+										<div>
+											<label className="block text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-2">
+												Expenses (SEK)
+											</label>
+											<input
+												type="number"
+												value={todayEntry.expenses || ""}
+												onChange={(e) => setTodayEntry({ ...todayEntry, expenses: Number(e.target.value) })}
+												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all"
+												placeholder="0"
+											/>
+										</div>
+									</div>
+									<div className="mt-4 p-4 rounded-xl bg-primary/5 dark:bg-primary/10">
+										<div className="flex justify-between items-center">
+											<span className="font-medium text-[#160d1c] dark:text-white">Net Profit Today:</span>
+											<span className={`text-2xl font-bold ${todayEntry.revenue - todayEntry.expenses >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
+												{(todayEntry.revenue - todayEntry.expenses).toLocaleString()} SEK
+											</span>
+										</div>
+									</div>
+								</div>
+
+								{/* Weekly Overview */}
+								<div
+									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+								>
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-5">
+										Weekly Overview
+									</h3>
+									<div className="space-y-3">
+										{weeklyData.map((day, i) => (
+											<div key={i} className="space-y-1.5">
+												<div className="text-sm font-medium text-[#794b9b]">{day.day}</div>
+												<div className="flex gap-2 items-center">
+													<div className="flex-1 h-7 rounded-lg overflow-hidden relative bg-primary/5 dark:bg-primary/10">
+														<div
+															className="h-full rounded-lg transition-all duration-500 bg-emerald-500"
+															style={{ width: `${(day.revenue / maxChartValue) * 100}%` }}
+														/>
+														{day.revenue > 0 && (
+															<span className="absolute left-2 top-1 text-[11px] font-semibold text-white">
+																{day.revenue.toLocaleString()} SEK
+															</span>
+														)}
+													</div>
+													<div className="flex-1 h-7 rounded-lg overflow-hidden relative bg-primary/5 dark:bg-primary/10">
+														<div
+															className="h-full rounded-lg transition-all duration-500 bg-red-400"
+															style={{ width: `${(day.expenses / maxChartValue) * 100}%` }}
+														/>
+														{day.expenses > 0 && (
+															<span className="absolute left-2 top-1 text-[11px] font-semibold text-white">
+																{day.expenses.toLocaleString()} SEK
+															</span>
+														)}
+													</div>
+												</div>
+											</div>
+										))}
+									</div>
+									<div className="flex gap-4 mt-5 text-sm">
+										<div className="flex items-center gap-2">
+											<div className="w-3 h-3 rounded-full bg-emerald-500" />
+											<span className="text-[#794b9b]">Revenue</span>
+										</div>
+										<div className="flex items-center gap-2">
+											<div className="w-3 h-3 rounded-full bg-red-400" />
+											<span className="text-[#794b9b]">Expenses</span>
+										</div>
+									</div>
+								</div>
+
+								{/* Operations Check */}
+								<div
+									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+								>
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-5">
+										Operations Check
+									</h3>
+									<div className="space-y-5">
+										<div>
+											<label className="block text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-2">
+												Atmosphere Today (1-10)
+											</label>
+											<input
+												type="range"
+												min="1"
+												max="10"
+												value={todayEntry.atmosphere}
+												onChange={(e) => setTodayEntry({ ...todayEntry, atmosphere: Number(e.target.value) })}
+												className="w-full accent-primary"
+											/>
+											<div className="flex justify-between text-sm mt-1">
+												<span className="text-[#794b9b]">Poor</span>
+												<span className="font-bold text-lg text-[#160d1c] dark:text-white">{todayEntry.atmosphere}/10</span>
+												<span className="text-[#794b9b]">Excellent</span>
+											</div>
+										</div>
+
+										<div>
+											<label className="block text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-2">
+												Operational Issues / Equipment Needs
+											</label>
+											<textarea
+												value={todayEntry.operationalIssues}
+												onChange={(e) => setTodayEntry({ ...todayEntry, operationalIssues: e.target.value })}
+												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all resize-none"
+												rows={3}
+												placeholder="Any equipment broken? Anything needs replacement or repair?"
+											/>
+										</div>
+
+										<div>
+											<label className="block text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-2">
+												Additional Notes
+											</label>
+											<textarea
+												value={todayEntry.notes}
+												onChange={(e) => setTodayEntry({ ...todayEntry, notes: e.target.value })}
+												className="w-full px-4 py-3 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all resize-none"
+												rows={3}
+												placeholder="Any other observations or notes for today..."
+											/>
+										</div>
+									</div>
+								</div>
+
+								{/* Save Button */}
+								<Button
+									onClick={() => alert("Daily report saved successfully!")}
+									variant="primary"
+									size="lg"
+									fullWidth
+								>
+									Save Daily Report
+								</Button>
+							</div>
+
+							{/* Sidebar */}
+							<div className="space-y-6">
+								{/* Daily To-Dos */}
+								<div
+									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6"
+									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+								>
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
+										Daily To-Dos
+									</h3>
+									<div className="space-y-3">
+										{dailyTodos.map((todo) => (
+											<button
+												key={todo.id}
+												onClick={() => toggleDailyTodo(todo.id)}
+												className="w-full flex items-start gap-3 text-left group"
+											>
+												<div
+													className={`w-5 h-5 rounded flex items-center justify-center flex-shrink-0 mt-0.5 transition-all border ${
+														todo.completed
+															? "bg-primary border-primary text-white"
+															: "border-slate-300 dark:border-slate-600 group-hover:border-primary/50"
+													}`}
+												>
+													{todo.completed && (
+														<svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+															<path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+														</svg>
+													)}
+												</div>
+												<span
+													className={`text-sm leading-snug transition-colors ${
+														todo.completed
+															? "text-slate-400 dark:text-slate-500 line-through"
+															: "text-slate-700 dark:text-slate-300 group-hover:text-[#160d1c] dark:group-hover:text-white"
+													}`}
+												>
+													{todo.text}
+												</span>
+											</button>
+										))}
+									</div>
+								</div>
+
+								{/* Upcoming Deadlines */}
+								<div
+									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6"
+									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+								>
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
+										Upcoming Deadlines
+									</h3>
+									<div className="space-y-3">
+										{[...deadlines]
+											.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+											.map((deadline) => {
+												const daysUntil = getDaysUntil(deadline.date);
+												const isOverdue = daysUntil < 0;
+												const isUrgent = daysUntil >= 0 && daysUntil <= 3;
+												const isSoon = daysUntil > 3 && daysUntil <= 7;
+
+												return (
+													<div
+														key={deadline.id}
+														className={`p-3 rounded-xl border ${
+															isOverdue
+																? "bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800/30"
+																: isUrgent
+																	? "bg-amber-50 dark:bg-amber-900/20 border-amber-200 dark:border-amber-800/30"
+																	: isSoon
+																		? "bg-primary/5 dark:bg-primary/10 border-primary/20"
+																		: "bg-emerald-50 dark:bg-emerald-900/20 border-emerald-200 dark:border-emerald-800/30"
+														}`}
+													>
+														<div className="flex items-start justify-between gap-2">
+															<div className="flex-1">
+																<div className="font-semibold text-sm text-[#160d1c] dark:text-white">
+																	{deadline.title}
+																</div>
+																<div className="text-xs text-[#794b9b] mt-1">
+																	{new Date(deadline.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+																</div>
+															</div>
+															<span
+																className={`text-[10px] font-bold uppercase tracking-wider whitespace-nowrap ${
+																	isOverdue
+																		? "text-red-600 dark:text-red-400"
+																		: isUrgent
+																			? "text-amber-600 dark:text-amber-400"
+																			: "text-emerald-600 dark:text-emerald-400"
+																}`}
+															>
+																{daysUntil < 0
+																	? `${Math.abs(daysUntil)}d overdue`
+																	: daysUntil === 0
+																		? "Today!"
+																		: `${daysUntil}d left`}
+															</span>
+														</div>
+													</div>
+												);
+											})}
+									</div>
+								</div>
+
+								{/* Quick Stats */}
+								<div
+									className="bg-primary rounded-2xl shadow-xl shadow-primary/20 p-6 text-white"
+								>
+									<h3 className="text-lg font-bold tracking-tight mb-4">
+										Quick Stats
+									</h3>
+									<div className="space-y-3 text-sm">
+										<div className="flex justify-between">
+											<span className="text-white/60">Tasks Completed:</span>
+											<span className="font-bold">
+												{dailyTodos.filter((t) => t.completed).length}/{dailyTodos.length}
+											</span>
+										</div>
+										<div className="flex justify-between">
+											<span className="text-white/60">Overdue Items:</span>
+											<span className="font-bold text-red-300">
+												{deadlines.filter((d) => getDaysUntil(d.date) < 0).length}
+											</span>
+										</div>
+										<div className="flex justify-between">
+											<span className="text-white/60">This Week Net:</span>
+											<span className="font-bold text-emerald-300">
+												{weeklyData
+													.slice(0, -1)
+													.reduce((sum, day) => sum + (day.revenue - day.expenses), 0)
+													.toLocaleString()}{" "}
+												SEK
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				)}
 			</main>
