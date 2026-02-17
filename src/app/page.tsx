@@ -41,7 +41,35 @@ interface MarketResearch {
 	recommendations: string[];
 }
 
-type AppView = "form" | "ready" | "loading" | "results" | "error";
+interface BusinessNameSuggestions {
+	names: Array<{
+		name: string;
+		reasoning: string;
+	}>;
+}
+
+interface BusinessTypeAssessment {
+	recommendedType: string;
+	reasoning: string;
+	alternatives: Array<{
+		type: string;
+		pros: string[];
+		cons: string[];
+	}>;
+	considerations: string[];
+}
+
+type AppView =
+	| "form"
+	| "ready"
+	| "loading"
+	| "results"
+	| "error"
+	| "naming-loading"
+	| "naming"
+	| "business-type"
+	| "business-type-loading"
+	| "business-type-results";
 
 function ScoreBar({ label, value }: { label: string; value: number }) {
 	const percentage = (value / 10) * 100;
@@ -110,6 +138,13 @@ export default function Home() {
 		null,
 	);
 	const [errorMessage, setErrorMessage] = useState("");
+	const [nameSuggestions, setNameSuggestions] =
+		useState<BusinessNameSuggestions | null>(null);
+	const [selectedName, setSelectedName] = useState("");
+	const [customName, setCustomName] = useState("");
+	const [useCustomName, setUseCustomName] = useState(false);
+	const [businessTypeData, setBusinessTypeData] =
+		useState<BusinessTypeAssessment | null>(null);
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
@@ -152,6 +187,77 @@ export default function Home() {
 		}
 	};
 
+	const getMarketSummaryText = (): string => {
+		if (!researchData) return "";
+		return `Market: ${researchData.marketSummary.overview} Size: ${researchData.marketSummary.estimatedMarketSize}. Viability: ${researchData.marketViabilityScore.overall}/10.`;
+	};
+
+	const startNameSuggestions = async () => {
+		setView("naming-loading");
+		try {
+			const response = await fetch("/chat/business-names", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					businessDescription: idea,
+					marketResearchSummary: getMarketSummaryText(),
+				}),
+			});
+
+			const result = await response.json();
+
+			if (result.success && result.data) {
+				setNameSuggestions(result.data);
+				setSelectedName(result.data.names[0]?.name ?? "");
+				setView("naming");
+			} else {
+				setErrorMessage(
+					result.error || "Something went wrong. Please try again.",
+				);
+				setView("error");
+			}
+		} catch (err) {
+			console.error("Business names error:", err);
+			setErrorMessage("Failed to connect. Please try again later.");
+			setView("error");
+		}
+	};
+
+	const getChosenName = (): string => {
+		return useCustomName ? customName : selectedName;
+	};
+
+	const startBusinessTypeAnalysis = async () => {
+		setView("business-type-loading");
+		try {
+			const response = await fetch("/chat/business-type", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					businessDescription: idea,
+					businessName: getChosenName(),
+					marketResearchSummary: getMarketSummaryText(),
+				}),
+			});
+
+			const result = await response.json();
+
+			if (result.success && result.data) {
+				setBusinessTypeData(result.data);
+				setView("business-type-results");
+			} else {
+				setErrorMessage(
+					result.error || "Something went wrong. Please try again.",
+				);
+				setView("error");
+			}
+		} catch (err) {
+			console.error("Business type error:", err);
+			setErrorMessage("Failed to connect. Please try again later.");
+			setView("error");
+		}
+	};
+
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
 			{/* Header */}
@@ -168,6 +274,11 @@ export default function Home() {
 									setIdea("");
 									setResearchData(null);
 									setErrorMessage("");
+									setNameSuggestions(null);
+									setSelectedName("");
+									setCustomName("");
+									setUseCustomName(false);
+									setBusinessTypeData(null);
 								}}
 								className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors text-sm"
 							>
@@ -793,6 +904,498 @@ export default function Home() {
 								</ul>
 							</div>
 						</div>
+
+						{/* Next Step */}
+						<div className="text-center pt-4">
+							<Button
+								onClick={startNameSuggestions}
+								variant="primary"
+								size="lg"
+							>
+								Next: Choose a Business Name
+							</Button>
+						</div>
+					</div>
+				)}
+				{/* ── NAMING LOADING VIEW ── */}
+				{view === "naming-loading" && (
+					<div className="max-w-lg mx-auto text-center py-20">
+						<div className="relative w-32 h-32 mx-auto mb-10">
+							<div className="absolute inset-0 rounded-full border-4 border-blue-200 dark:border-blue-900 animate-ping opacity-20" />
+							<div
+								className="absolute inset-3 rounded-full border-4 border-purple-200 dark:border-purple-900 animate-ping opacity-20"
+								style={{ animationDelay: "0.5s" }}
+							/>
+							<div
+								className="absolute inset-6 rounded-full border-4 border-blue-200 dark:border-blue-900 animate-ping opacity-20"
+								style={{ animationDelay: "1s" }}
+							/>
+							<div className="absolute inset-0 flex items-center justify-center">
+								<div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 animate-pulse flex items-center justify-center">
+									<svg
+										className="w-8 h-8 text-white animate-spin"
+										fill="none"
+										viewBox="0 0 24 24"
+									>
+										<circle
+											className="opacity-25"
+											cx="12"
+											cy="12"
+											r="10"
+											stroke="currentColor"
+											strokeWidth="4"
+										/>
+										<path
+											className="opacity-75"
+											fill="currentColor"
+											d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+										/>
+									</svg>
+								</div>
+							</div>
+						</div>
+
+						<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+							Brainstorming Business Names
+						</h2>
+						<p className="text-gray-600 dark:text-gray-300 mb-8">
+							Our AI is crafting unique, memorable name ideas for your
+							business. This should only take a moment.
+						</p>
+
+						<div className="space-y-3 text-left max-w-xs mx-auto">
+							{[
+								"Analyzing your brand identity",
+								"Considering market positioning",
+								"Crafting creative options",
+								"Checking name availability trends",
+								"Finalizing suggestions",
+							].map((step, i) => (
+								<div
+									key={step}
+									className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 animate-pulse"
+									style={{ animationDelay: `${i * 0.3}s` }}
+								>
+									<div className="w-2 h-2 rounded-full bg-purple-400 dark:bg-purple-500" />
+									{step}
+								</div>
+							))}
+						</div>
+					</div>
+				)}
+
+				{/* ── NAMING VIEW ── */}
+				{view === "naming" && nameSuggestions && (
+					<div className="max-w-2xl mx-auto">
+						<div className="text-center mb-8">
+							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+								<svg
+									className="w-10 h-10 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									strokeWidth={2}
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
+									/>
+								</svg>
+							</div>
+							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+								Choose Your Business Name
+							</h2>
+							<p className="text-lg text-gray-600 dark:text-gray-300">
+								Select one of our AI-generated suggestions or enter your
+								own.
+							</p>
+						</div>
+
+						<div className="space-y-3 mb-6">
+							{nameSuggestions.names.map((suggestion, i) => (
+								<button
+									key={i}
+									onClick={() => {
+										setSelectedName(suggestion.name);
+										setUseCustomName(false);
+									}}
+									className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
+										!useCustomName &&
+										selectedName === suggestion.name
+											? "border-purple-500 bg-purple-50 dark:bg-purple-900/20 shadow-md"
+											: "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-purple-300 dark:hover:border-purple-700"
+									}`}
+								>
+									<div className="flex items-center gap-3">
+										<div
+											className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+												!useCustomName &&
+												selectedName === suggestion.name
+													? "border-purple-500"
+													: "border-gray-300 dark:border-gray-600"
+											}`}
+										>
+											{!useCustomName &&
+												selectedName === suggestion.name && (
+													<div className="w-3 h-3 rounded-full bg-purple-500" />
+												)}
+										</div>
+										<div>
+											<span className="font-semibold text-gray-900 dark:text-white text-lg">
+												{suggestion.name}
+											</span>
+											<p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+												{suggestion.reasoning}
+											</p>
+										</div>
+									</div>
+								</button>
+							))}
+						</div>
+
+						{/* Custom name input */}
+						<div className="bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-200 dark:border-gray-700 p-4 mb-8">
+							<div className="flex items-center gap-3 mb-3">
+								<button
+									onClick={() => setUseCustomName(true)}
+									className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+										useCustomName
+											? "border-purple-500"
+											: "border-gray-300 dark:border-gray-600"
+									}`}
+								>
+									{useCustomName && (
+										<div className="w-3 h-3 rounded-full bg-purple-500" />
+									)}
+								</button>
+								<span className="font-medium text-gray-900 dark:text-white">
+									Use my own name
+								</span>
+							</div>
+							<input
+								type="text"
+								placeholder="Enter your business name..."
+								value={customName}
+								onChange={(e) => {
+									setCustomName(e.target.value);
+									setUseCustomName(true);
+								}}
+								onFocus={() => setUseCustomName(true)}
+								className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+							/>
+						</div>
+
+						<Button
+							onClick={() => setView("business-type")}
+							variant="primary"
+							size="lg"
+							fullWidth
+							disabled={
+								useCustomName
+									? !customName.trim()
+									: !selectedName
+							}
+						>
+							Next
+						</Button>
+					</div>
+				)}
+
+				{/* ── BUSINESS TYPE VIEW ── */}
+				{view === "business-type" && (
+					<div className="max-w-2xl mx-auto text-center">
+						<div className="mb-8">
+							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+								<svg
+									className="w-10 h-10 text-white"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									strokeWidth={2}
+								>
+									<path
+										strokeLinecap="round"
+										strokeLinejoin="round"
+										d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+									/>
+								</svg>
+							</div>
+							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+								Assess Business Type
+							</h2>
+							<p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
+								Let our AI recommend the best Swedish business entity
+								type for{" "}
+								<span className="font-semibold text-gray-900 dark:text-white">
+									{getChosenName()}
+								</span>
+								.
+							</p>
+						</div>
+
+						<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 mb-8 text-left">
+							<h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+								We&apos;ll compare these Swedish entity types:
+							</h3>
+							<div className="space-y-3">
+								{[
+									{
+										abbr: "Enskild firma",
+										desc: "Sole proprietorship - simplest form, personal liability",
+									},
+									{
+										abbr: "HB",
+										desc: "Handelsbolag - trading partnership with personal liability",
+									},
+									{
+										abbr: "KB",
+										desc: "Kommanditbolag - limited partnership",
+									},
+									{
+										abbr: "AB",
+										desc: "Aktiebolag - limited company with share capital",
+									},
+									{
+										abbr: "Ekonomisk forening",
+										desc: "Economic association / cooperative",
+									},
+								].map((type) => (
+									<div
+										key={type.abbr}
+										className="flex items-start gap-3 text-sm"
+									>
+										<span className="font-semibold text-emerald-600 dark:text-emerald-400 min-w-[120px]">
+											{type.abbr}
+										</span>
+										<span className="text-gray-600 dark:text-gray-400">
+											{type.desc}
+										</span>
+									</div>
+								))}
+							</div>
+						</div>
+
+						<Button
+							onClick={startBusinessTypeAnalysis}
+							variant="primary"
+							size="lg"
+							fullWidth
+						>
+							Analyse Business Type
+						</Button>
+					</div>
+				)}
+
+				{/* ── BUSINESS TYPE LOADING VIEW ── */}
+				{view === "business-type-loading" && (
+					<div className="max-w-lg mx-auto text-center py-20">
+						<div className="relative w-32 h-32 mx-auto mb-10">
+							<div className="absolute inset-0 rounded-full border-4 border-emerald-200 dark:border-emerald-900 animate-ping opacity-20" />
+							<div
+								className="absolute inset-3 rounded-full border-4 border-teal-200 dark:border-teal-900 animate-ping opacity-20"
+								style={{ animationDelay: "0.5s" }}
+							/>
+							<div
+								className="absolute inset-6 rounded-full border-4 border-emerald-200 dark:border-emerald-900 animate-ping opacity-20"
+								style={{ animationDelay: "1s" }}
+							/>
+							<div className="absolute inset-0 flex items-center justify-center">
+								<div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 animate-pulse flex items-center justify-center">
+									<svg
+										className="w-8 h-8 text-white animate-spin"
+										fill="none"
+										viewBox="0 0 24 24"
+									>
+										<circle
+											className="opacity-25"
+											cx="12"
+											cy="12"
+											r="10"
+											stroke="currentColor"
+											strokeWidth="4"
+										/>
+										<path
+											className="opacity-75"
+											fill="currentColor"
+											d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+										/>
+									</svg>
+								</div>
+							</div>
+						</div>
+
+						<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+							Analysing Business Type
+						</h2>
+						<p className="text-gray-600 dark:text-gray-300 mb-8">
+							Our AI is evaluating the best Swedish entity type for your
+							business. This should only take a moment.
+						</p>
+
+						<div className="space-y-3 text-left max-w-xs mx-auto">
+							{[
+								"Evaluating liability requirements",
+								"Checking capital needs",
+								"Comparing tax implications",
+								"Assessing governance structure",
+								"Preparing recommendation",
+							].map((step, i) => (
+								<div
+									key={step}
+									className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 animate-pulse"
+									style={{ animationDelay: `${i * 0.3}s` }}
+								>
+									<div className="w-2 h-2 rounded-full bg-emerald-400 dark:bg-emerald-500" />
+									{step}
+								</div>
+							))}
+						</div>
+					</div>
+				)}
+
+				{/* ── BUSINESS TYPE RESULTS VIEW ── */}
+				{view === "business-type-results" && businessTypeData && (
+					<div className="space-y-8">
+						<div className="text-center mb-4">
+							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+								Business Type Recommendation
+							</h2>
+							<p className="text-gray-600 dark:text-gray-300">
+								For{" "}
+								<span className="font-semibold text-gray-900 dark:text-white">
+									{getChosenName()}
+								</span>
+							</p>
+						</div>
+
+						{/* Recommended Type - Hero Card */}
+						<div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-xl p-6 sm:p-8 text-white">
+							<div className="flex items-center gap-3 mb-4">
+								<div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+									<svg
+										className="w-6 h-6"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										strokeWidth={2}
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+										/>
+									</svg>
+								</div>
+								<div>
+									<span className="text-sm font-medium text-emerald-100 uppercase tracking-wider">
+										Recommended
+									</span>
+									<h3 className="text-2xl sm:text-3xl font-bold">
+										{businessTypeData.recommendedType}
+									</h3>
+								</div>
+							</div>
+							<p className="text-emerald-50 leading-relaxed">
+								{businessTypeData.reasoning}
+							</p>
+						</div>
+
+						{/* Alternatives */}
+						{businessTypeData.alternatives.length > 0 && (
+							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
+								<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+									Alternative Options
+								</h3>
+								<div className="space-y-4">
+									{businessTypeData.alternatives.map(
+										(alt, i) => (
+											<div
+												key={i}
+												className="border border-gray-200 dark:border-gray-700 rounded-xl p-4"
+											>
+												<h4 className="font-semibold text-gray-900 dark:text-white mb-3">
+													{alt.type}
+												</h4>
+												<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+													<div>
+														<span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+															Pros
+														</span>
+														<ul className="mt-1 space-y-1">
+															{alt.pros.map(
+																(pro, j) => (
+																	<li
+																		key={j}
+																		className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+																	>
+																		<span className="text-emerald-500 mt-0.5 flex-shrink-0">
+																			&#10003;
+																		</span>
+																		{pro}
+																	</li>
+																),
+															)}
+														</ul>
+													</div>
+													<div>
+														<span className="text-xs font-semibold text-red-600 dark:text-red-400 uppercase tracking-wider">
+															Cons
+														</span>
+														<ul className="mt-1 space-y-1">
+															{alt.cons.map(
+																(con, j) => (
+																	<li
+																		key={j}
+																		className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+																	>
+																		<span className="text-red-400 mt-0.5 flex-shrink-0">
+																			&#8226;
+																		</span>
+																		{con}
+																	</li>
+																),
+															)}
+														</ul>
+													</div>
+												</div>
+											</div>
+										),
+									)}
+								</div>
+							</div>
+						)}
+
+						{/* Considerations */}
+						{businessTypeData.considerations.length > 0 && (
+							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
+								<div className="flex items-center gap-2 mb-4">
+									<div className="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
+										<span className="text-amber-600 dark:text-amber-400 text-sm font-bold">
+											!
+										</span>
+									</div>
+									<h3 className="text-xl font-bold text-gray-900 dark:text-white">
+										Important Considerations
+									</h3>
+								</div>
+								<ul className="space-y-2">
+									{businessTypeData.considerations.map(
+										(item, i) => (
+											<li
+												key={i}
+												className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+											>
+												<span className="text-amber-500 mt-0.5 flex-shrink-0">
+													{i + 1}.
+												</span>
+												{item}
+											</li>
+										),
+									)}
+								</ul>
+							</div>
+						)}
 					</div>
 				)}
 			</main>
