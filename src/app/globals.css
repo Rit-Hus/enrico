@@ -3,21 +3,25 @@
 @tailwind utilities;
 
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+	--background: #f7f6f8;
+	--foreground: #160d1c;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
+		--background: #1b1022;
+		--foreground: #ffffff;
 	}
 }
 
 body {
 	color: var(--foreground);
 	background: var(--background);
-	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Score Ring */
+.circular-progress {
+	background: conic-gradient(#9719f0 var(--score-deg, 0deg), #ddcfe8 0deg);
 }
 
 @layer utilities {

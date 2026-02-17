@@ -20,21 +20,21 @@ export default function Button({
 	type = "button",
 }: ButtonProps) {
 	const baseStyles =
-		"font-semibold rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
+		"font-display rounded-full transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95";
 
 	const variantStyles = {
 		primary:
-			"bg-blue-600 hover:bg-blue-700 text-white focus:ring-blue-500 dark:bg-blue-500 dark:hover:bg-blue-600",
+			"bg-primary text-white shadow-xl shadow-primary/20 font-bold hover:shadow-primary/40",
 		secondary:
-			"bg-gray-600 hover:bg-gray-700 text-white focus:ring-gray-500 dark:bg-gray-500 dark:hover:bg-gray-600",
+			"bg-slate-100 dark:bg-white/10 text-[#160d1c] dark:text-white font-bold",
 		outline:
-			"border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500 dark:border-blue-400 dark:text-blue-400 dark:hover:bg-blue-900",
+			"text-[#794b9b] dark:text-primary/60 font-medium",
 	};
 
 	const sizeStyles = {
-		sm: "px-3 py-1.5 text-sm",
-		md: "px-4 py-2 text-base",
-		lg: "px-6 py-3 text-lg",
+		sm: "px-4 py-2 text-sm",
+		md: "px-5 py-3 text-base",
+		lg: "px-6 py-4 text-lg",
 	};
 
 	const widthStyles = fullWidth ? "w-full" : "";

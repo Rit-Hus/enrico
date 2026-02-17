@@ -15,21 +15,22 @@ export default function Card({
 }: CardProps) {
 	return (
 		<div
-			className={`bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-6 ${className}`}
+			className={`bg-white dark:bg-white/5 rounded border border-primary/10 p-6 transition-shadow ${className}`}
+			style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 		>
 			{title && (
 				<div className="mb-4">
-					<h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
+					<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-1">
 						{title}
 					</h3>
 					{subtitle && (
-						<p className="text-sm text-gray-600 dark:text-gray-400">
+						<p className="text-sm text-slate-500 dark:text-slate-400">
 							{subtitle}
 						</p>
 					)}
 				</div>
 			)}
-			<div className="text-gray-700 dark:text-gray-300">{children}</div>
+			<div className="text-slate-700 dark:text-slate-300">{children}</div>
 		</div>
 	);
 }

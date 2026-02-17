@@ -28,7 +28,7 @@ export default function Input({
 	return (
 		<div className={`w-full ${className}`}>
 			{label && (
-				<label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+				<label className="block text-sm font-medium text-[#160d1c] dark:text-white mb-2">
 					{label}
 					{required && <span className="text-red-500 ml-1">*</span>}
 				</label>
@@ -41,14 +41,14 @@ export default function Input({
 				onChange={onChange}
 				disabled={disabled}
 				required={required}
-				className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all
+				className={`w-full px-4 py-2 border rounded-lg focus:outline-none transition-all
           ${
 						error
-							? "border-red-500 focus:ring-red-500"
-							: "border-gray-300 dark:border-gray-600"
+							? "border-red-500 focus:ring-4 focus:ring-red-500/10 focus:border-red-500"
+							: "border-primary/20 focus:border-primary focus:ring-4 focus:ring-primary/10"
 					}
-          bg-white dark:bg-gray-700 text-gray-900 dark:text-white
-          placeholder-gray-400 dark:placeholder-gray-500
+          bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white
+          placeholder:text-[#794b9b]/50
           disabled:opacity-50 disabled:cursor-not-allowed
         `}
 			/>

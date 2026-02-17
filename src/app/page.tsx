@@ -83,12 +83,12 @@ function ScoreBar({ label, value }: { label: string; value: number }) {
 	return (
 		<div className="space-y-1">
 			<div className="flex justify-between text-sm">
-				<span className="text-gray-600 dark:text-gray-400">{label}</span>
-				<span className="font-semibold text-gray-900 dark:text-white">
+				<span className="text-[#794b9b]">{label}</span>
+				<span className="font-bold text-[#160d1c] dark:text-white">
 					{value}/10
 				</span>
 			</div>
-			<div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+			<div className="h-2 bg-primary/10 dark:bg-primary/5 rounded-full overflow-hidden">
 				<div
 					className={`h-full ${color} rounded-full transition-all duration-1000 ease-out`}
 					style={{ width: `${percentage}%` }}
@@ -259,9 +259,9 @@ export default function Home() {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+		<div className="min-h-screen bg-background-light dark:bg-background-dark">
 			{/* Header */}
-			<header className="border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
+			<header className="border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
 				<nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 					<div className="flex items-center justify-between">
 						<img src="/logo.png" alt="Logo" className="h-12 object-contain" />
@@ -278,7 +278,7 @@ export default function Home() {
 									setUseCustomName(false);
 									setBusinessTypeData(null);
 								}}
-								className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors text-sm"
+								className="text-[#794b9b] hover:text-primary transition-colors text-sm"
 							>
 								Start Over
 							</button>
@@ -288,28 +288,31 @@ export default function Home() {
 			</header>
 
 			<main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-				{/* ── FORM VIEW ── */}
+				{/* -- FORM VIEW -- */}
 				{view === "form" && (
 					<>
 						<div className="text-center mb-12">
-							<h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+							<h2 className="font-poppins text-[38px] leading-[1.1] font-bold text-[#160d1c] dark:text-white mb-6">
 								Start Your Company
-								<span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+								<span className="block text-primary">
 									With Confidence
 								</span>
 							</h2>
-							<p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+							<p className="text-lg font-medium text-[#794b9b] max-w-2xl mx-auto">
 								Share your business idea and get AI-powered market research
 								to validate your startup.
 							</p>
 						</div>
 
-						<div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10">
+						<div
+							className="max-w-2xl mx-auto bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8 lg:p-10"
+							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+						>
 							<div className="mb-8">
-								<h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-2">
+								<h3 className="text-2xl sm:text-3xl font-bold text-[#160d1c] dark:text-white mb-2">
 									Tell Us About Your Idea
 								</h3>
-								<p className="text-gray-600 dark:text-gray-400">
+								<p className="text-sm text-slate-500 dark:text-slate-400 leading-snug">
 									Describe your business idea and we&apos;ll research the
 									market for you.
 								</p>
@@ -317,9 +320,8 @@ export default function Home() {
 
 							<form onSubmit={handleSubmit} className="space-y-6">
 								<div className="w-full">
-									<label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+									<label className="block text-sm font-medium text-[#160d1c] dark:text-white mb-2">
 										Your Business Idea
-										<span className="text-red-500 ml-1">*</span>
 									</label>
 									<textarea
 										placeholder="Describe your business idea in detail. What problem does it solve? Who are your customers? What makes it unique?"
@@ -330,9 +332,9 @@ export default function Home() {
 										}}
 										required
 										rows={6}
-										className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all resize-y
-											${ideaError ? "border-red-500 focus:ring-red-500" : "border-gray-300 dark:border-gray-600"}
-											bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500`}
+										className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all resize-none
+											${ideaError ? "border-red-500 focus:ring-red-500" : "border-primary/20"}
+											bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50`}
 									/>
 									{ideaError && (
 										<p className="mt-1 text-sm text-red-500">{ideaError}</p>
@@ -353,11 +355,11 @@ export default function Home() {
 					</>
 				)}
 
-				{/* ── READY VIEW ── */}
+				{/* -- READY VIEW -- */}
 				{view === "ready" && (
 					<div className="max-w-2xl mx-auto text-center">
 						<div className="mb-8">
-							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary flex items-center justify-center">
 								<svg
 									className="w-10 h-10 text-white"
 									fill="none"
@@ -372,54 +374,57 @@ export default function Home() {
 									/>
 								</svg>
 							</div>
-							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-4">
 								Ready to Research Your Market
 							</h2>
-							<p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
+							<p className="text-lg font-medium text-[#794b9b] mb-2">
 								We&apos;ll analyze the market for your business idea.
 							</p>
 						</div>
 
-						<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 mb-8 text-left">
-							<h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+						<div
+							className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8 mb-8 text-left"
+							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+						>
+							<h3 className="text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-3">
 								Your Business Idea
 							</h3>
-							<p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+							<p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
 								{idea}
 							</p>
 						</div>
 
-						<div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 mb-8">
-							<h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+						<div className="bg-primary/5 border border-primary/20 rounded-xl p-6 mb-8">
+							<h3 className="font-semibold text-[#160d1c] dark:text-white mb-2">
 								What you&apos;ll get:
 							</h3>
-							<ul className="text-sm text-gray-600 dark:text-gray-300 space-y-2 text-left max-w-md mx-auto">
+							<ul className="text-sm text-slate-700 dark:text-slate-300 space-y-2 text-left max-w-md mx-auto">
 								<li className="flex items-start gap-2">
-									<span className="text-blue-600 dark:text-blue-400 mt-0.5">
+									<span className="text-primary mt-0.5">
 										&#10003;
 									</span>
 									Market overview &amp; estimated size
 								</li>
 								<li className="flex items-start gap-2">
-									<span className="text-blue-600 dark:text-blue-400 mt-0.5">
+									<span className="text-primary mt-0.5">
 										&#10003;
 									</span>
 									Key competitors analysis
 								</li>
 								<li className="flex items-start gap-2">
-									<span className="text-blue-600 dark:text-blue-400 mt-0.5">
+									<span className="text-primary mt-0.5">
 										&#10003;
 									</span>
 									Target audience profiling
 								</li>
 								<li className="flex items-start gap-2">
-									<span className="text-blue-600 dark:text-blue-400 mt-0.5">
+									<span className="text-primary mt-0.5">
 										&#10003;
 									</span>
 									Market viability scoring
 								</li>
 								<li className="flex items-start gap-2">
-									<span className="text-blue-600 dark:text-blue-400 mt-0.5">
+									<span className="text-primary mt-0.5">
 										&#10003;
 									</span>
 									Pricing benchmarks &amp; recommendations
@@ -438,22 +443,22 @@ export default function Home() {
 					</div>
 				)}
 
-				{/* ── LOADING VIEW ── */}
+				{/* -- LOADING VIEW -- */}
 				{view === "loading" && (
 					<div className="max-w-lg mx-auto text-center py-20">
 						{/* Animated pulsing rings */}
 						<div className="relative w-32 h-32 mx-auto mb-10">
-							<div className="absolute inset-0 rounded-full border-4 border-blue-200 dark:border-blue-900 animate-ping opacity-20" />
+							<div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-ping opacity-20" />
 							<div
-								className="absolute inset-3 rounded-full border-4 border-purple-200 dark:border-purple-900 animate-ping opacity-20"
+								className="absolute inset-3 rounded-full border-4 border-primary/20 animate-ping opacity-20"
 								style={{ animationDelay: "0.5s" }}
 							/>
 							<div
-								className="absolute inset-6 rounded-full border-4 border-blue-200 dark:border-blue-900 animate-ping opacity-20"
+								className="absolute inset-6 rounded-full border-4 border-primary/20 animate-ping opacity-20"
 								style={{ animationDelay: "1s" }}
 							/>
 							<div className="absolute inset-0 flex items-center justify-center">
-								<div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 animate-pulse flex items-center justify-center">
+								<div className="w-16 h-16 rounded-full bg-primary animate-pulse flex items-center justify-center">
 									<svg
 										className="w-8 h-8 text-white animate-spin"
 										fill="none"
@@ -477,10 +482,10 @@ export default function Home() {
 							</div>
 						</div>
 
-						<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+						<h2 className="text-2xl sm:text-3xl font-bold text-[#160d1c] dark:text-white mb-4">
 							Analyzing Your Market
 						</h2>
-						<p className="text-gray-600 dark:text-gray-300 mb-8">
+						<p className="text-[#794b9b] mb-8">
 							Our AI is researching competitors, market trends, and
 							opportunities for your business idea. This may take a minute.
 						</p>
@@ -496,10 +501,10 @@ export default function Home() {
 							].map((step, i) => (
 								<div
 									key={step}
-									className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 animate-pulse"
+									className="flex items-center gap-3 text-sm text-[#794b9b] animate-pulse"
 									style={{ animationDelay: `${i * 0.3}s` }}
 								>
-									<div className="w-2 h-2 rounded-full bg-blue-400 dark:bg-blue-500" />
+									<div className="w-2 h-2 rounded-full bg-primary" />
 									{step}
 								</div>
 							))}
@@ -507,7 +512,7 @@ export default function Home() {
 					</div>
 				)}
 
-				{/* ── ERROR VIEW ── */}
+				{/* -- ERROR VIEW -- */}
 				{view === "error" && (
 					<div className="max-w-lg mx-auto text-center py-20">
 						<div className="w-16 h-16 mx-auto mb-6 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
@@ -525,10 +530,10 @@ export default function Home() {
 								/>
 							</svg>
 						</div>
-						<h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+						<h2 className="text-2xl font-bold text-[#160d1c] dark:text-white mb-3">
 							Something Went Wrong
 						</h2>
-						<p className="text-gray-600 dark:text-gray-300 mb-8">
+						<p className="text-[#794b9b] mb-8">
 							{errorMessage}
 						</p>
 						<div className="flex gap-4 justify-center">
@@ -546,18 +551,21 @@ export default function Home() {
 					</div>
 				)}
 
-				{/* ── RESULTS VIEW ── */}
+				{/* -- RESULTS VIEW -- */}
 				{view === "results" && researchData && (
 					<div className="space-y-8">
 						{/* Results Header */}
 						<div className="text-center mb-4">
-							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
 								Market Research Results
 							</h2>
 						</div>
 
 						{/* Viability Score - Hero Card */}
-						<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
+						<div
+							className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+						>
 							<div className="flex flex-col sm:flex-row items-center gap-6 mb-6">
 								<div className="relative w-28 h-28 flex-shrink-0">
 									<svg className="w-28 h-28 -rotate-90" viewBox="0 0 120 120">
@@ -567,7 +575,7 @@ export default function Home() {
 											r="52"
 											fill="none"
 											stroke="currentColor"
-											className="text-gray-200 dark:text-gray-700"
+											className="text-primary/10"
 											strokeWidth="12"
 										/>
 										<circle
@@ -588,25 +596,25 @@ export default function Home() {
 												x2="100%"
 												y2="100%"
 											>
-												<stop offset="0%" stopColor="#3b82f6" />
-												<stop offset="100%" stopColor="#8b5cf6" />
+												<stop offset="0%" stopColor="#9719f0" />
+												<stop offset="100%" stopColor="#9719f0" />
 											</linearGradient>
 										</defs>
 									</svg>
 									<div className="absolute inset-0 flex items-center justify-center">
-										<span className="text-3xl font-bold text-gray-900 dark:text-white">
+										<span className="text-3xl font-bold tracking-tighter text-[#160d1c] dark:text-white">
 											{researchData.marketViabilityScore.overall}
 										</span>
-										<span className="text-sm text-gray-500 dark:text-gray-400">
+										<span className="text-sm text-[#794b9b]">
 											/10
 										</span>
 									</div>
 								</div>
 								<div className="text-center sm:text-left">
-									<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-1">
 										Market Viability Score
 									</h3>
-									<p className="text-gray-600 dark:text-gray-400 text-sm">
+									<p className="text-sm text-slate-500 dark:text-slate-400 leading-snug">
 										{researchData.marketViabilityScore.reasoning}
 									</p>
 								</div>
@@ -633,24 +641,27 @@ export default function Home() {
 						</div>
 
 						{/* Market Summary */}
-						<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
-							<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+						<div
+							className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+						>
+							<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
 								Market Summary
 							</h3>
-							<p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+							<p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300 mb-4">
 								{researchData.marketSummary.overview}
 							</p>
 							<div className="flex flex-wrap gap-3 mb-4">
-								<div className="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
-									<span className="text-xs text-gray-500 dark:text-gray-400 block">
+								<div className="px-4 py-2 bg-primary/5 dark:bg-primary/10 rounded-lg">
+									<span className="text-[10px] font-bold uppercase tracking-widest text-primary/60 block">
 										Est. Market Size
 									</span>
-									<span className="font-semibold text-gray-900 dark:text-white">
+									<span className="font-semibold text-[#160d1c] dark:text-white">
 										{researchData.marketSummary.estimatedMarketSize}
 									</span>
 								</div>
-								<div className="px-4 py-2 bg-gray-100 dark:bg-gray-700 rounded-lg">
-									<span className="text-xs text-gray-500 dark:text-gray-400 block">
+								<div className="px-4 py-2 bg-primary/5 dark:bg-primary/10 rounded-lg">
+									<span className="text-[10px] font-bold uppercase tracking-widest text-primary/60 block">
 										Growth Trend
 									</span>
 									<GrowthBadge
@@ -660,7 +671,7 @@ export default function Home() {
 							</div>
 							{researchData.marketSummary.keyInsights.length > 0 && (
 								<div>
-									<h4 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+									<h4 className="text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-2">
 										Key Insights
 									</h4>
 									<ul className="space-y-2">
@@ -668,9 +679,9 @@ export default function Home() {
 											(insight, i) => (
 												<li
 													key={i}
-													className="flex items-start gap-2 text-sm text-gray-700 dark:text-gray-300"
+													className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300"
 												>
-													<span className="text-blue-500 mt-1 flex-shrink-0">
+													<span className="text-primary mt-1 flex-shrink-0">
 														&#8226;
 													</span>
 													{insight}
@@ -685,37 +696,40 @@ export default function Home() {
 						{/* Target Audience & Pricing - Side by Side */}
 						<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 							{/* Target Audience */}
-							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
-								<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+							<div
+								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+							>
+								<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
 									Target Audience
 								</h3>
 								<div className="space-y-4">
 									<div>
-										<span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+										<span className="text-[10px] font-bold uppercase tracking-widest text-primary/60">
 											Primary Segment
 										</span>
-										<p className="text-gray-900 dark:text-white font-medium">
+										<p className="text-[#160d1c] dark:text-white font-medium">
 											{researchData.targetAudience.primarySegment}
 										</p>
 									</div>
 									<div>
-										<span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+										<span className="text-[10px] font-bold uppercase tracking-widest text-primary/60">
 											Demographics
 										</span>
-										<p className="text-gray-700 dark:text-gray-300 text-sm">
+										<p className="text-sm text-slate-700 dark:text-slate-300">
 											{researchData.targetAudience.demographics}
 										</p>
 									</div>
 									<div>
-										<span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+										<span className="text-[10px] font-bold uppercase tracking-widest text-primary/60">
 											Buying Behavior
 										</span>
-										<p className="text-gray-700 dark:text-gray-300 text-sm">
+										<p className="text-sm text-slate-700 dark:text-slate-300">
 											{researchData.targetAudience.buyingBehavior}
 										</p>
 									</div>
 									<div>
-										<span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+										<span className="text-[10px] font-bold uppercase tracking-widest text-primary/60">
 											Pain Points
 										</span>
 										<ul className="mt-1 space-y-1">
@@ -723,7 +737,7 @@ export default function Home() {
 												(point, i) => (
 													<li
 														key={i}
-														className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+														className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2"
 													>
 														<span className="text-red-400 mt-0.5">!</span>
 														{point}
@@ -736,44 +750,47 @@ export default function Home() {
 							</div>
 
 							{/* Pricing Benchmark */}
-							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
-								<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+							<div
+								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+							>
+								<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
 									Pricing Benchmark
 								</h3>
 								<div className="space-y-4">
 									<div className="flex items-end gap-4">
 										<div className="flex-1 text-center">
-											<div className="h-20 bg-gray-200 dark:bg-gray-700 rounded-t-lg flex items-end justify-center pb-2">
-												<span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+											<div className="h-20 bg-primary/10 dark:bg-primary/5 rounded-t-lg flex items-end justify-center pb-2">
+												<span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
 													{researchData.pricingBenchmark.low}
 												</span>
 											</div>
-											<span className="text-xs text-gray-500 dark:text-gray-400 mt-1 block">
+											<span className="text-xs text-[#794b9b] mt-1 block">
 												Low
 											</span>
 										</div>
 										<div className="flex-1 text-center">
-											<div className="h-32 bg-gradient-to-t from-blue-500 to-purple-500 rounded-t-lg flex items-end justify-center pb-2">
+											<div className="h-32 bg-primary rounded-t-lg flex items-end justify-center pb-2">
 												<span className="text-sm font-semibold text-white">
 													{researchData.pricingBenchmark.median}
 												</span>
 											</div>
-											<span className="text-xs text-gray-500 dark:text-gray-400 mt-1 block">
+											<span className="text-xs text-[#794b9b] mt-1 block">
 												Median
 											</span>
 										</div>
 										<div className="flex-1 text-center">
-											<div className="h-24 bg-gray-200 dark:bg-gray-700 rounded-t-lg flex items-end justify-center pb-2">
-												<span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+											<div className="h-24 bg-primary/10 dark:bg-primary/5 rounded-t-lg flex items-end justify-center pb-2">
+												<span className="text-sm font-semibold text-slate-700 dark:text-slate-300">
 													{researchData.pricingBenchmark.high}
 												</span>
 											</div>
-											<span className="text-xs text-gray-500 dark:text-gray-400 mt-1 block">
+											<span className="text-xs text-[#794b9b] mt-1 block">
 												High
 											</span>
 										</div>
 									</div>
-									<p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+									<p className="text-xs text-[#794b9b] text-center">
 										Currency: {researchData.pricingBenchmark.currency}
 									</p>
 								</div>
@@ -782,32 +799,35 @@ export default function Home() {
 
 						{/* Competitors */}
 						{researchData.keyCompetitors.length > 0 && (
-							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
-								<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+							<div
+								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+							>
+								<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
 									Key Competitors
 								</h3>
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
 									{researchData.keyCompetitors.map((competitor, i) => (
 										<div
 											key={i}
-											className="border border-gray-200 dark:border-gray-700 rounded-xl p-4"
+											className="border border-primary/10 rounded-xl p-4"
 										>
 											<div className="flex justify-between items-start mb-2">
-												<h4 className="font-semibold text-gray-900 dark:text-white">
+												<h4 className="font-semibold text-[#160d1c] dark:text-white">
 													{competitor.name}
 												</h4>
-												<span className="text-xs px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-gray-600 dark:text-gray-400">
+												<span className="text-xs px-2 py-1 bg-primary/5 dark:bg-primary/10 rounded-full text-[#794b9b]">
 													{competitor.estimatedPriceRange}
 												</span>
 											</div>
-											<p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+											<p className="text-sm text-slate-500 dark:text-slate-400 leading-snug mb-3">
 												{competitor.description}
 											</p>
 											<div className="flex flex-wrap gap-1">
 												{competitor.strengths.map((s, j) => (
 													<span
 														key={j}
-														className="text-xs px-2 py-0.5 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full"
+														className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full"
 													>
 														{s}
 													</span>
@@ -822,14 +842,17 @@ export default function Home() {
 						{/* Opportunities, Risks, Recommendations */}
 						<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 							{/* Opportunities */}
-							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6">
+							<div
+								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6"
+								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+							>
 								<div className="flex items-center gap-2 mb-4">
 									<div className="w-8 h-8 rounded-full bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
 										<span className="text-emerald-600 dark:text-emerald-400 text-sm font-bold">
 											+
 										</span>
 									</div>
-									<h3 className="text-lg font-bold text-gray-900 dark:text-white">
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
 										Opportunities
 									</h3>
 								</div>
@@ -837,7 +860,7 @@ export default function Home() {
 									{researchData.opportunities.map((opp, i) => (
 										<li
 											key={i}
-											className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+											className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2"
 										>
 											<span className="text-emerald-500 mt-0.5 flex-shrink-0">
 												&#10003;
@@ -849,14 +872,17 @@ export default function Home() {
 							</div>
 
 							{/* Risks */}
-							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6">
+							<div
+								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6"
+								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+							>
 								<div className="flex items-center gap-2 mb-4">
 									<div className="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
 										<span className="text-red-600 dark:text-red-400 text-sm font-bold">
 											!
 										</span>
 									</div>
-									<h3 className="text-lg font-bold text-gray-900 dark:text-white">
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
 										Risks
 									</h3>
 								</div>
@@ -864,7 +890,7 @@ export default function Home() {
 									{researchData.risks.map((risk, i) => (
 										<li
 											key={i}
-											className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+											className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2"
 										>
 											<span className="text-red-400 mt-0.5 flex-shrink-0">
 												&#8226;
@@ -876,14 +902,17 @@ export default function Home() {
 							</div>
 
 							{/* Recommendations */}
-							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6">
+							<div
+								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6"
+								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+							>
 								<div className="flex items-center gap-2 mb-4">
-									<div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-										<span className="text-blue-600 dark:text-blue-400 text-sm font-bold">
+									<div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+										<span className="text-primary text-sm font-bold">
 											&#9733;
 										</span>
 									</div>
-									<h3 className="text-lg font-bold text-gray-900 dark:text-white">
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
 										Recommendations
 									</h3>
 								</div>
@@ -891,9 +920,9 @@ export default function Home() {
 									{researchData.recommendations.map((rec, i) => (
 										<li
 											key={i}
-											className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+											className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2"
 										>
-											<span className="text-blue-500 mt-0.5 flex-shrink-0">
+											<span className="text-primary mt-0.5 flex-shrink-0">
 												{i + 1}.
 											</span>
 											{rec}
@@ -915,21 +944,21 @@ export default function Home() {
 						</div>
 					</div>
 				)}
-				{/* ── NAMING LOADING VIEW ── */}
+				{/* -- NAMING LOADING VIEW -- */}
 				{view === "naming-loading" && (
 					<div className="max-w-lg mx-auto text-center py-20">
 						<div className="relative w-32 h-32 mx-auto mb-10">
-							<div className="absolute inset-0 rounded-full border-4 border-blue-200 dark:border-blue-900 animate-ping opacity-20" />
+							<div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-ping opacity-20" />
 							<div
-								className="absolute inset-3 rounded-full border-4 border-purple-200 dark:border-purple-900 animate-ping opacity-20"
+								className="absolute inset-3 rounded-full border-4 border-primary/20 animate-ping opacity-20"
 								style={{ animationDelay: "0.5s" }}
 							/>
 							<div
-								className="absolute inset-6 rounded-full border-4 border-blue-200 dark:border-blue-900 animate-ping opacity-20"
+								className="absolute inset-6 rounded-full border-4 border-primary/20 animate-ping opacity-20"
 								style={{ animationDelay: "1s" }}
 							/>
 							<div className="absolute inset-0 flex items-center justify-center">
-								<div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 animate-pulse flex items-center justify-center">
+								<div className="w-16 h-16 rounded-full bg-primary animate-pulse flex items-center justify-center">
 									<svg
 										className="w-8 h-8 text-white animate-spin"
 										fill="none"
@@ -953,10 +982,10 @@ export default function Home() {
 							</div>
 						</div>
 
-						<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+						<h2 className="text-2xl sm:text-3xl font-bold text-[#160d1c] dark:text-white mb-4">
 							Brainstorming Business Names
 						</h2>
-						<p className="text-gray-600 dark:text-gray-300 mb-8">
+						<p className="text-[#794b9b] mb-8">
 							Our AI is crafting unique, memorable name ideas for your
 							business. This should only take a moment.
 						</p>
@@ -971,10 +1000,10 @@ export default function Home() {
 							].map((step, i) => (
 								<div
 									key={step}
-									className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 animate-pulse"
+									className="flex items-center gap-3 text-sm text-[#794b9b] animate-pulse"
 									style={{ animationDelay: `${i * 0.3}s` }}
 								>
-									<div className="w-2 h-2 rounded-full bg-purple-400 dark:bg-purple-500" />
+									<div className="w-2 h-2 rounded-full bg-primary" />
 									{step}
 								</div>
 							))}
@@ -982,11 +1011,11 @@ export default function Home() {
 					</div>
 				)}
 
-				{/* ── NAMING VIEW ── */}
+				{/* -- NAMING VIEW -- */}
 				{view === "naming" && nameSuggestions && (
 					<div className="max-w-2xl mx-auto">
 						<div className="text-center mb-8">
-							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary flex items-center justify-center">
 								<svg
 									className="w-10 h-10 text-white"
 									fill="none"
@@ -1001,10 +1030,10 @@ export default function Home() {
 									/>
 								</svg>
 							</div>
-							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
 								Choose Your Business Name
 							</h2>
-							<p className="text-lg text-gray-600 dark:text-gray-300">
+							<p className="text-lg font-medium text-[#794b9b]">
 								Select one of our AI-generated suggestions or enter your
 								own.
 							</p>
@@ -1021,8 +1050,8 @@ export default function Home() {
 									className={`w-full text-left p-4 rounded-xl border-2 transition-all ${
 										!useCustomName &&
 										selectedName === suggestion.name
-											? "border-purple-500 bg-purple-50 dark:bg-purple-900/20 shadow-md"
-											: "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-purple-300 dark:hover:border-purple-700"
+											? "border-primary bg-primary/5 dark:bg-primary/10 shadow-md"
+											: "border-primary/10 bg-white dark:bg-white/5 hover:border-primary/30"
 									}`}
 								>
 									<div className="flex items-center gap-3">
@@ -1030,20 +1059,20 @@ export default function Home() {
 											className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
 												!useCustomName &&
 												selectedName === suggestion.name
-													? "border-purple-500"
-													: "border-gray-300 dark:border-gray-600"
+													? "border-primary"
+													: "border-primary/30"
 											}`}
 										>
 											{!useCustomName &&
 												selectedName === suggestion.name && (
-													<div className="w-3 h-3 rounded-full bg-purple-500" />
+													<div className="w-3 h-3 rounded-full bg-primary" />
 												)}
 										</div>
 										<div>
-											<span className="font-semibold text-gray-900 dark:text-white text-lg">
+											<span className="font-semibold text-[#160d1c] dark:text-white text-lg">
 												{suggestion.name}
 											</span>
-											<p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
+											<p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
 												{suggestion.reasoning}
 											</p>
 										</div>
@@ -1053,21 +1082,21 @@ export default function Home() {
 						</div>
 
 						{/* Custom name input */}
-						<div className="bg-white dark:bg-gray-800 rounded-xl border-2 border-gray-200 dark:border-gray-700 p-4 mb-8">
+						<div className="bg-white dark:bg-white/5 rounded-xl border-2 border-primary/10 p-4 mb-8">
 							<div className="flex items-center gap-3 mb-3">
 								<button
 									onClick={() => setUseCustomName(true)}
 									className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
 										useCustomName
-											? "border-purple-500"
-											: "border-gray-300 dark:border-gray-600"
+											? "border-primary"
+											: "border-primary/30"
 									}`}
 								>
 									{useCustomName && (
-										<div className="w-3 h-3 rounded-full bg-purple-500" />
+										<div className="w-3 h-3 rounded-full bg-primary" />
 									)}
 								</button>
-								<span className="font-medium text-gray-900 dark:text-white">
+								<span className="font-medium text-[#160d1c] dark:text-white">
 									Use my own name
 								</span>
 							</div>
@@ -1080,7 +1109,7 @@ export default function Home() {
 									setUseCustomName(true);
 								}}
 								onFocus={() => setUseCustomName(true)}
-								className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500"
+								className="w-full px-4 py-2.5 border border-primary/20 rounded-lg bg-white dark:bg-[#251630] text-[#160d1c] dark:text-white placeholder:text-[#794b9b]/50 focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary"
 							/>
 						</div>
 
@@ -1100,11 +1129,11 @@ export default function Home() {
 					</div>
 				)}
 
-				{/* ── BUSINESS TYPE VIEW ── */}
+				{/* -- BUSINESS TYPE VIEW -- */}
 				{view === "business-type" && (
 					<div className="max-w-2xl mx-auto text-center">
 						<div className="mb-8">
-							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center">
+							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary flex items-center justify-center">
 								<svg
 									className="w-10 h-10 text-white"
 									fill="none"
@@ -1119,21 +1148,24 @@ export default function Home() {
 									/>
 								</svg>
 							</div>
-							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-4">
 								Assess Business Type
 							</h2>
-							<p className="text-lg text-gray-600 dark:text-gray-300 mb-2">
+							<p className="text-lg font-medium text-[#794b9b] mb-2">
 								Let our AI recommend the best Swedish business entity
 								type for{" "}
-								<span className="font-semibold text-gray-900 dark:text-white">
+								<span className="font-semibold text-[#160d1c] dark:text-white">
 									{getChosenName()}
 								</span>
 								.
 							</p>
 						</div>
 
-						<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 mb-8 text-left">
-							<h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+						<div
+							className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8 mb-8 text-left"
+							style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+						>
+							<h3 className="text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-4">
 								We&apos;ll compare these Swedish entity types:
 							</h3>
 							<div className="space-y-3">
@@ -1163,10 +1195,10 @@ export default function Home() {
 										key={type.abbr}
 										className="flex items-start gap-3 text-sm"
 									>
-										<span className="font-semibold text-emerald-600 dark:text-emerald-400 min-w-[120px]">
+										<span className="font-semibold text-primary min-w-[120px]">
 											{type.abbr}
 										</span>
-										<span className="text-gray-600 dark:text-gray-400">
+										<span className="text-slate-500 dark:text-slate-400">
 											{type.desc}
 										</span>
 									</div>
@@ -1185,21 +1217,21 @@ export default function Home() {
 					</div>
 				)}
 
-				{/* ── BUSINESS TYPE LOADING VIEW ── */}
+				{/* -- BUSINESS TYPE LOADING VIEW -- */}
 				{view === "business-type-loading" && (
 					<div className="max-w-lg mx-auto text-center py-20">
 						<div className="relative w-32 h-32 mx-auto mb-10">
-							<div className="absolute inset-0 rounded-full border-4 border-emerald-200 dark:border-emerald-900 animate-ping opacity-20" />
+							<div className="absolute inset-0 rounded-full border-4 border-primary/20 animate-ping opacity-20" />
 							<div
-								className="absolute inset-3 rounded-full border-4 border-teal-200 dark:border-teal-900 animate-ping opacity-20"
+								className="absolute inset-3 rounded-full border-4 border-primary/20 animate-ping opacity-20"
 								style={{ animationDelay: "0.5s" }}
 							/>
 							<div
-								className="absolute inset-6 rounded-full border-4 border-emerald-200 dark:border-emerald-900 animate-ping opacity-20"
+								className="absolute inset-6 rounded-full border-4 border-primary/20 animate-ping opacity-20"
 								style={{ animationDelay: "1s" }}
 							/>
 							<div className="absolute inset-0 flex items-center justify-center">
-								<div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 animate-pulse flex items-center justify-center">
+								<div className="w-16 h-16 rounded-full bg-primary animate-pulse flex items-center justify-center">
 									<svg
 										className="w-8 h-8 text-white animate-spin"
 										fill="none"
@@ -1223,10 +1255,10 @@ export default function Home() {
 							</div>
 						</div>
 
-						<h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+						<h2 className="text-2xl sm:text-3xl font-bold text-[#160d1c] dark:text-white mb-4">
 							Analysing Business Type
 						</h2>
-						<p className="text-gray-600 dark:text-gray-300 mb-8">
+						<p className="text-[#794b9b] mb-8">
 							Our AI is evaluating the best Swedish entity type for your
 							business. This should only take a moment.
 						</p>
@@ -1241,10 +1273,10 @@ export default function Home() {
 							].map((step, i) => (
 								<div
 									key={step}
-									className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400 animate-pulse"
+									className="flex items-center gap-3 text-sm text-[#794b9b] animate-pulse"
 									style={{ animationDelay: `${i * 0.3}s` }}
 								>
-									<div className="w-2 h-2 rounded-full bg-emerald-400 dark:bg-emerald-500" />
+									<div className="w-2 h-2 rounded-full bg-primary" />
 									{step}
 								</div>
 							))}
@@ -1252,23 +1284,23 @@ export default function Home() {
 					</div>
 				)}
 
-				{/* ── BUSINESS TYPE RESULTS VIEW ── */}
+				{/* -- BUSINESS TYPE RESULTS VIEW -- */}
 				{view === "business-type-results" && businessTypeData && (
 					<div className="space-y-8">
 						<div className="text-center mb-4">
-							<h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
+							<h2 className="text-3xl sm:text-4xl font-extrabold leading-tight tracking-tight text-[#160d1c] dark:text-white mb-2">
 								Business Type Recommendation
 							</h2>
-							<p className="text-gray-600 dark:text-gray-300">
+							<p className="text-[#794b9b]">
 								For{" "}
-								<span className="font-semibold text-gray-900 dark:text-white">
+								<span className="font-semibold text-[#160d1c] dark:text-white">
 									{getChosenName()}
 								</span>
 							</p>
 						</div>
 
 						{/* Recommended Type - Hero Card */}
-						<div className="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl shadow-xl p-6 sm:p-8 text-white">
+						<div className="bg-primary rounded-2xl shadow-xl shadow-primary/20 p-6 sm:p-8 text-white">
 							<div className="flex items-center gap-3 mb-4">
 								<div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
 									<svg
@@ -1286,7 +1318,7 @@ export default function Home() {
 									</svg>
 								</div>
 								<div>
-									<span className="text-sm font-medium text-emerald-100 uppercase tracking-wider">
+									<span className="text-sm font-medium text-primary/60 text-white/60 uppercase tracking-wider">
 										Recommended
 									</span>
 									<h3 className="text-2xl sm:text-3xl font-bold">
@@ -1294,15 +1326,18 @@ export default function Home() {
 									</h3>
 								</div>
 							</div>
-							<p className="text-emerald-50 leading-relaxed">
+							<p className="text-white/80 leading-relaxed">
 								{businessTypeData.reasoning}
 							</p>
 						</div>
 
 						{/* Alternatives */}
 						{businessTypeData.alternatives.length > 0 && (
-							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
-								<h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+							<div
+								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+							>
+								<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white mb-4">
 									Alternative Options
 								</h3>
 								<div className="space-y-4">
@@ -1310,9 +1345,9 @@ export default function Home() {
 										(alt, i) => (
 											<div
 												key={i}
-												className="border border-gray-200 dark:border-gray-700 rounded-xl p-4"
+												className="border border-primary/10 rounded-xl p-4"
 											>
-												<h4 className="font-semibold text-gray-900 dark:text-white mb-3">
+												<h4 className="font-semibold text-[#160d1c] dark:text-white mb-3">
 													{alt.type}
 												</h4>
 												<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -1325,7 +1360,7 @@ export default function Home() {
 																(pro, j) => (
 																	<li
 																		key={j}
-																		className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+																		className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2"
 																	>
 																		<span className="text-emerald-500 mt-0.5 flex-shrink-0">
 																			&#10003;
@@ -1345,7 +1380,7 @@ export default function Home() {
 																(con, j) => (
 																	<li
 																		key={j}
-																		className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+																		className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2"
 																	>
 																		<span className="text-red-400 mt-0.5 flex-shrink-0">
 																			&#8226;
@@ -1366,14 +1401,17 @@ export default function Home() {
 
 						{/* Considerations */}
 						{businessTypeData.considerations.length > 0 && (
-							<div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8">
+							<div
+								className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+								style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+							>
 								<div className="flex items-center gap-2 mb-4">
 									<div className="w-8 h-8 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center">
 										<span className="text-amber-600 dark:text-amber-400 text-sm font-bold">
 											!
 										</span>
 									</div>
-									<h3 className="text-xl font-bold text-gray-900 dark:text-white">
+									<h3 className="text-lg font-bold tracking-tight text-[#160d1c] dark:text-white">
 										Important Considerations
 									</h3>
 								</div>
@@ -1382,7 +1420,7 @@ export default function Home() {
 										(item, i) => (
 											<li
 												key={i}
-												className="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2"
+												className="text-sm text-slate-700 dark:text-slate-300 flex items-start gap-2"
 											>
 												<span className="text-amber-500 mt-0.5 flex-shrink-0">
 													{i + 1}.
@@ -1399,9 +1437,9 @@ export default function Home() {
 			</main>
 
 			{/* Footer */}
-			<footer className="border-t border-gray-200 dark:border-gray-700 mt-12">
+			<footer className="border-t border-primary/10 mt-12">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-					<p className="text-center text-gray-600 dark:text-gray-400">
+					<p className="text-center text-[#794b9b]/70">
 						&copy; 2026 Helping entrepreneurs build their dreams.
 					</p>
 				</div>
