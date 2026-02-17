@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 
@@ -131,6 +132,12 @@ export default function Home() {
 							Robin
 						</h1>
 						<div className="flex gap-4">
+							<Link
+								href="/next-steps"
+								className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors font-medium"
+							>
+								Next Steps
+							</Link>
 							<a
 								href="#about"
 								className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
