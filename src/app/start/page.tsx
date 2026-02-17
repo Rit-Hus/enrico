@@ -234,6 +234,8 @@ type AppView =
 	| "business-type-results"
 	| "dashboard";
 
+type DashboardTab = "daily-report" | "weekly-overview" | "todo";
+
 function ScoreBar({ label, value }: { label: string; value: number }) {
 	const percentage = (value / 10) * 100;
 	const color =
@@ -310,6 +312,7 @@ export default function Home() {
 		useState<BusinessTypeAssessment | null>(null);
 	const [dashboardSteps, setDashboardSteps] = useState<NextStep[]>(initialSteps);
 	const [expandedStepId, setExpandedStepId] = useState<number | null>(null);
+	const [dashboardTab, setDashboardTab] = useState<DashboardTab>("daily-report");
 
 	// Daily check-in state
 	const [todayEntry, setTodayEntry] = useState<DailyEntry>({
@@ -1869,29 +1872,27 @@ export default function Home() {
 					</div>
 				)}
 
-				{/* -- DAILY CHECK-IN VIEW (shown when all steps completed) -- */}
+				{/* -- TABBED DASHBOARD (shown when all steps completed) -- */}
 				{view === "dashboard" && allStepsCompleted && (
-					<div className="space-y-8">
-						{/* Daily Check-in Header */}
-						<div className="text-center mb-4">
-							<div className="w-20 h-20 mx-auto mb-6 rounded-full bg-primary flex items-center justify-center">
-								<svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-									<path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-								</svg>
-							</div>
-							<h2 className="text-3xl sm:text-4xl font-medium leading-tight tracking-tight text-[#14332D] dark:text-white mb-2">
-								Daily Dashboard
+					<div className="space-y-6 pb-24">
+						{/* Dashboard Header */}
+						<div className="text-center mb-2">
+							<p className="text-[10px] font-bold uppercase tracking-widest text-primary/60 mb-2">
+								{getChosenName()}
+							</p>
+							<h2 className="text-2xl sm:text-3xl font-medium leading-tight tracking-tight text-[#14332D] dark:text-white mb-1">
+								{dashboardTab === "daily-report" && "Daily Report"}
+								{dashboardTab === "weekly-overview" && "Weekly Overview"}
+								{dashboardTab === "todo" && "Tasks & Deadlines"}
 							</h2>
-							<p className="text-lg font-medium text-[#14332D]">
+							<p className="text-sm text-slate-500 dark:text-slate-400">
 								{new Date().toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
-								{" \u2014 "}
-								<span className="font-semibold text-[#14332D] dark:text-white">{getChosenName()}</span>
 							</p>
 						</div>
 
-						<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-							{/* Main Content (2 cols) */}
-							<div className="lg:col-span-2 space-y-6">
+						{/* ===== DAILY REPORT TAB ===== */}
+						{dashboardTab === "daily-report" && (
+							<div className="space-y-6">
 								{/* Today's Financials */}
 								<div
 									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
@@ -1932,57 +1933,6 @@ export default function Home() {
 											<span className={`text-2xl font-bold ${todayEntry.revenue - todayEntry.expenses >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
 												{(todayEntry.revenue - todayEntry.expenses).toLocaleString()} SEK
 											</span>
-										</div>
-									</div>
-								</div>
-
-								{/* Weekly Overview */}
-								<div
-									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
-									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
-								>
-									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-5">
-										Weekly Overview
-									</h3>
-									<div className="space-y-3">
-										{weeklyData.map((day, i) => (
-											<div key={i} className="space-y-1.5">
-												<div className="text-sm font-medium text-[#14332D]">{day.day}</div>
-												<div className="flex gap-2 items-center">
-													<div className="flex-1 h-7 rounded-lg overflow-hidden relative bg-primary/5 dark:bg-primary/10">
-														<div
-															className="h-full rounded-lg transition-all duration-500 bg-emerald-500"
-															style={{ width: `${(day.revenue / maxChartValue) * 100}%` }}
-														/>
-														{day.revenue > 0 && (
-															<span className="absolute left-2 top-1 text-[11px] font-semibold text-white">
-																{day.revenue.toLocaleString()} SEK
-															</span>
-														)}
-													</div>
-													<div className="flex-1 h-7 rounded-lg overflow-hidden relative bg-primary/5 dark:bg-primary/10">
-														<div
-															className="h-full rounded-lg transition-all duration-500 bg-red-400"
-															style={{ width: `${(day.expenses / maxChartValue) * 100}%` }}
-														/>
-														{day.expenses > 0 && (
-															<span className="absolute left-2 top-1 text-[11px] font-semibold text-white">
-																{day.expenses.toLocaleString()} SEK
-															</span>
-														)}
-													</div>
-												</div>
-											</div>
-										))}
-									</div>
-									<div className="flex gap-4 mt-5 text-sm">
-										<div className="flex items-center gap-2">
-											<div className="w-3 h-3 rounded-full bg-emerald-500" />
-											<span className="text-[#14332D]">Revenue</span>
-										</div>
-										<div className="flex items-center gap-2">
-											<div className="w-3 h-3 rounded-full bg-red-400" />
-											<span className="text-[#14332D]">Expenses</span>
 										</div>
 									</div>
 								</div>
@@ -2053,17 +2003,145 @@ export default function Home() {
 									Save Daily Report
 								</Button>
 							</div>
+						)}
 
-							{/* Sidebar */}
+						{/* ===== WEEKLY OVERVIEW TAB ===== */}
+						{dashboardTab === "weekly-overview" && (
+							<div className="space-y-6">
+								{/* Quick Stats Cards */}
+								<div className="grid grid-cols-2 gap-4">
+									<div
+										className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-5"
+										style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+									>
+										<div className="w-10 h-10 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-3">
+											<span className="material-symbols-outlined text-emerald-500">trending_up</span>
+										</div>
+										<p className="text-2xl font-bold tracking-tighter text-[#14332D] dark:text-white">
+											{weeklyData.reduce((sum, day) => sum + day.revenue, 0).toLocaleString()}
+										</p>
+										<p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-1">
+											Total Revenue (SEK)
+										</p>
+									</div>
+									<div
+										className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-5"
+										style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+									>
+										<div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center mb-3">
+											<span className="material-symbols-outlined text-primary">account_balance_wallet</span>
+										</div>
+										<p className={`text-2xl font-bold tracking-tighter ${weeklyData.reduce((sum, day) => sum + (day.revenue - day.expenses), 0) >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-red-600 dark:text-red-400"}`}>
+											{weeklyData.reduce((sum, day) => sum + (day.revenue - day.expenses), 0).toLocaleString()}
+										</p>
+										<p className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mt-1">
+											Net Profit (SEK)
+										</p>
+									</div>
+								</div>
+
+								{/* Weekly Chart */}
+								<div
+									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6 sm:p-8"
+									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
+								>
+									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-5">
+										Revenue vs Expenses
+									</h3>
+									<div className="space-y-3">
+										{weeklyData.map((day, i) => (
+											<div key={i} className="space-y-1.5">
+												<div className="text-sm font-medium text-[#14332D]">{day.day}</div>
+												<div className="flex gap-2 items-center">
+													<div className="flex-1 h-7 rounded-lg overflow-hidden relative bg-primary/5 dark:bg-primary/10">
+														<div
+															className="h-full rounded-lg transition-all duration-500 bg-emerald-500"
+															style={{ width: `${(day.revenue / maxChartValue) * 100}%` }}
+														/>
+														{day.revenue > 0 && (
+															<span className="absolute left-2 top-1 text-[11px] font-semibold text-white">
+																{day.revenue.toLocaleString()} SEK
+															</span>
+														)}
+													</div>
+													<div className="flex-1 h-7 rounded-lg overflow-hidden relative bg-primary/5 dark:bg-primary/10">
+														<div
+															className="h-full rounded-lg transition-all duration-500 bg-red-400"
+															style={{ width: `${(day.expenses / maxChartValue) * 100}%` }}
+														/>
+														{day.expenses > 0 && (
+															<span className="absolute left-2 top-1 text-[11px] font-semibold text-white">
+																{day.expenses.toLocaleString()} SEK
+															</span>
+														)}
+													</div>
+												</div>
+											</div>
+										))}
+									</div>
+									<div className="flex gap-4 mt-5 text-sm">
+										<div className="flex items-center gap-2">
+											<div className="w-3 h-3 rounded-full bg-emerald-500" />
+											<span className="text-[#14332D]">Revenue</span>
+										</div>
+										<div className="flex items-center gap-2">
+											<div className="w-3 h-3 rounded-full bg-red-400" />
+											<span className="text-[#14332D]">Expenses</span>
+										</div>
+									</div>
+								</div>
+
+								{/* Quick Stats Summary */}
+								<div
+									className="bg-primary rounded-2xl shadow-xl shadow-primary/20 p-6 text-white"
+								>
+									<h3 className="text-lg font-medium tracking-tight mb-4">
+										Week Summary
+									</h3>
+									<div className="space-y-3 text-sm">
+										<div className="flex justify-between">
+											<span className="text-white/60">Tasks Completed:</span>
+											<span className="font-bold">
+												{dailyTodos.filter((t) => t.completed).length}/{dailyTodos.length}
+											</span>
+										</div>
+										<div className="flex justify-between">
+											<span className="text-white/60">Overdue Items:</span>
+											<span className="font-bold text-red-300">
+												{deadlines.filter((d) => getDaysUntil(d.date) < 0).length}
+											</span>
+										</div>
+										<div className="flex justify-between">
+											<span className="text-white/60">This Week Net:</span>
+											<span className="font-bold text-emerald-300">
+												{weeklyData
+													.slice(0, -1)
+													.reduce((sum, day) => sum + (day.revenue - day.expenses), 0)
+													.toLocaleString()}{" "}
+												SEK
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						)}
+
+						{/* ===== TODO TAB ===== */}
+						{dashboardTab === "todo" && (
 							<div className="space-y-6">
 								{/* Daily To-Dos */}
 								<div
 									className="bg-white dark:bg-white/5 rounded-2xl border border-primary/10 p-6"
 									style={{ boxShadow: "0 2px 12px -2px rgba(0,0,0,0.08)" }}
 								>
-									<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white mb-4">
-										Daily To-Dos
-									</h3>
+									<div className="flex items-center justify-between mb-4">
+										<h3 className="text-lg font-medium tracking-tight text-[#14332D] dark:text-white">
+											Daily To-Dos
+										</h3>
+										<span className="text-sm font-bold text-primary">
+											{dailyTodos.filter((t) => t.completed).length}/{dailyTodos.length}
+										</span>
+									</div>
 									<div className="space-y-3">
 										{dailyTodos.map((todo) => (
 											<button
@@ -2158,53 +2236,74 @@ export default function Home() {
 											})}
 									</div>
 								</div>
-
-								{/* Quick Stats */}
-								<div
-									className="bg-primary rounded-2xl shadow-xl shadow-primary/20 p-6 text-white"
-								>
-									<h3 className="text-lg font-medium tracking-tight mb-4">
-										Quick Stats
-									</h3>
-									<div className="space-y-3 text-sm">
-										<div className="flex justify-between">
-											<span className="text-white/60">Tasks Completed:</span>
-											<span className="font-bold">
-												{dailyTodos.filter((t) => t.completed).length}/{dailyTodos.length}
-											</span>
-										</div>
-										<div className="flex justify-between">
-											<span className="text-white/60">Overdue Items:</span>
-											<span className="font-bold text-red-300">
-												{deadlines.filter((d) => getDaysUntil(d.date) < 0).length}
-											</span>
-										</div>
-										<div className="flex justify-between">
-											<span className="text-white/60">This Week Net:</span>
-											<span className="font-bold text-emerald-300">
-												{weeklyData
-													.slice(0, -1)
-													.reduce((sum, day) => sum + (day.revenue - day.expenses), 0)
-													.toLocaleString()}{" "}
-												SEK
-											</span>
-										</div>
-									</div>
-								</div>
 							</div>
-						</div>
+						)}
 					</div>
 				)}
 			</main>
 
-			{/* Footer */}
-			<footer className="border-t border-primary/10 mt-12">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-					<p className="text-center text-[#14332D]/70">
-						&copy; 2026 Helping entrepreneurs build their dreams.
-					</p>
-				</div>
-			</footer>
+			{/* Bottom Tab Bar - only visible on completed dashboard */}
+			{view === "dashboard" && allStepsCompleted && (
+				<nav className="fixed bottom-0 left-0 right-0 bg-white/90 dark:bg-background-dark/90 backdrop-blur-lg border-t border-primary/10 px-6 pb-8 pt-3 z-50">
+					<div className="flex justify-between items-center max-w-md mx-auto">
+						<button
+							onClick={() => setDashboardTab("daily-report")}
+							className={`flex flex-col items-center gap-1 ${dashboardTab === "daily-report" ? "text-primary" : "text-slate-400 dark:text-slate-500"}`}
+						>
+							<div className={`flex h-8 w-8 items-center justify-center rounded-full ${dashboardTab === "daily-report" ? "bg-primary/10" : ""}`}>
+								<span
+									className="material-symbols-outlined"
+									style={dashboardTab === "daily-report" ? { fontVariationSettings: "'FILL' 1" } : undefined}
+								>
+									edit_note
+								</span>
+							</div>
+							<p className="text-[10px] font-bold uppercase tracking-wider">Report</p>
+						</button>
+
+						<button
+							onClick={() => setDashboardTab("weekly-overview")}
+							className={`flex flex-col items-center gap-1 ${dashboardTab === "weekly-overview" ? "text-primary" : "text-slate-400 dark:text-slate-500"}`}
+						>
+							<div className={`flex h-8 w-8 items-center justify-center rounded-full ${dashboardTab === "weekly-overview" ? "bg-primary/10" : ""}`}>
+								<span
+									className="material-symbols-outlined"
+									style={dashboardTab === "weekly-overview" ? { fontVariationSettings: "'FILL' 1" } : undefined}
+								>
+									bar_chart
+								</span>
+							</div>
+							<p className="text-[10px] font-bold uppercase tracking-wider">Overview</p>
+						</button>
+
+						<button
+							onClick={() => setDashboardTab("todo")}
+							className={`flex flex-col items-center gap-1 ${dashboardTab === "todo" ? "text-primary" : "text-slate-400 dark:text-slate-500"}`}
+						>
+							<div className={`flex h-8 w-8 items-center justify-center rounded-full ${dashboardTab === "todo" ? "bg-primary/10" : ""}`}>
+								<span
+									className="material-symbols-outlined"
+									style={dashboardTab === "todo" ? { fontVariationSettings: "'FILL' 1" } : undefined}
+								>
+									task_alt
+								</span>
+							</div>
+							<p className="text-[10px] font-bold uppercase tracking-wider">Todo</p>
+						</button>
+					</div>
+				</nav>
+			)}
+
+			{/* Footer - hidden when bottom tab bar is visible */}
+			{!(view === "dashboard" && allStepsCompleted) && (
+				<footer className="border-t border-primary/10 mt-12">
+					<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+						<p className="text-center text-[#14332D]/70">
+							&copy; 2026 Helping entrepreneurs build their dreams.
+						</p>
+					</div>
+				</footer>
+			)}
 		</div>
 	);
 }
