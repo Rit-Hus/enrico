@@ -130,9 +130,23 @@ export default function NextStepsPage() {
 
 	const toggleComplete = (stepId: number) => {
 		setSteps(
-			steps.map((step) =>
-				step.id === stepId ? { ...step, completed: !step.completed } : step,
-			),
+			steps.map((step) => {
+				if (step.id === stepId) {
+					const newCompletedState = !step.completed;
+					return {
+						...step,
+						completed: newCompletedState,
+						details: {
+							...step.details,
+							bulletPoints: step.details.bulletPoints.map((bullet) => ({
+								...bullet,
+								completed: newCompletedState,
+							})),
+						},
+					};
+				}
+				return step;
+			}),
 		);
 	};
 
@@ -140,15 +154,23 @@ export default function NextStepsPage() {
 		setSteps(
 			steps.map((step) => {
 				if (step.id === stepId) {
+					const updatedBulletPoints = step.details.bulletPoints.map((bullet) =>
+						bullet.id === bulletId
+							? { ...bullet, completed: !bullet.completed }
+							: bullet
+					);
+					
+					// Check if all bullet points are completed
+					const allBulletsCompleted = updatedBulletPoints.every(
+						(bullet) => bullet.completed
+					);
+					
 					return {
 						...step,
+						completed: allBulletsCompleted,
 						details: {
 							...step.details,
-							bulletPoints: step.details.bulletPoints.map((bullet) =>
-								bullet.id === bulletId
-									? { ...bullet, completed: !bullet.completed }
-									: bullet
-							),
+							bulletPoints: updatedBulletPoints,
 						},
 					};
 				}
